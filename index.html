@@ -201,6 +201,20 @@ h1 .thin{display:block;font-weight:400;color:var(--slate)}
 @keyframes flow{to{background-position:10px 0}}
 @media(max-width:720px){.pipe{flex-direction:column;gap:10px}.pipe .link{width:1px;height:34px;background-image:linear-gradient(180deg,var(--signal) 55%,transparent 0);background-size:1px 10px;margin-left:24px}.pipe .link::after{right:-3.5px;top:auto;bottom:-1px;border:4px solid transparent;border-top-color:var(--signal)}}
 
+/* terminal build-status badge */
+.term-wrap{margin-top:26px}
+.term{background:#000;border:1px solid #1d1d22;border-radius:8px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.5);max-width:580px}
+.term-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#161619;border-bottom:1px solid #232329}
+.term-bar i{width:9px;height:9px;border-radius:50%;background:#3a3a40;font-style:normal;display:inline-block}
+.term-bar i:first-child{background:var(--signal)}
+.term-path{margin-left:8px;font-family:var(--mono);font-size:10.5px;color:var(--slate);letter-spacing:.06em}
+.term-body{padding:14px 16px;font-family:var(--mono);font-size:11.8px;line-height:1.8;color:#c7c9ce}
+.term-prompt{color:var(--signal)}
+.term-ok{color:var(--brass)}
+.term-ok b{color:var(--bone)}
+.term-cursor{display:inline-block;width:7px;height:12px;background:var(--bone);margin-left:2px;transform:translateY(2px);animation:blink 1s steps(2,start) infinite}
+.term-cap{margin-top:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--slate);max-width:42em}
+
 /* also / skills / contact */
 .strip{border-top:1px solid var(--line);padding:64px 0}
 .strip h3{
@@ -340,11 +354,11 @@ footer{
     <div class="slate-col">
       <div class="tc">TC 00:03:00:00</div>
       <div class="clipno">Clip 03</div>
-      <span class="status">In production</span>
+      <span class="status">In production · since Feb 2026</span>
     </div>
     <div>
       <h2>FASHION-FX — AI image generation for a sportswear brand</h2>
-      <p class="sub">I design and run the production pipeline behind Prozis e-commerce and lookbook photography — real campaigns, shipped end to end: packshots, lifestyle and macro detail across multiple product lines.</p>
+      <p class="sub">I coordinate Prozis's AI product-photography project end-to-end: the methodology, the production and the delivery. Real campaigns shipped across multiple product lines — packshots, lifestyle and macro detail.</p>
 
       <div class="pipe" aria-label="Two-pass generation pipeline">
         <div class="node">PROMPT SPEC<small>layered, documented methodology</small></div>
@@ -355,18 +369,53 @@ footer{
       </div>
 
       <div class="specs">
-        <div class="spec"><div class="k">Two-pass technique</div><div class="v">A generation chain I developed that removes over-processed artifacts without leaving the platform.</div></div>
-        <div class="spec"><div class="k">Product fidelity</div><div class="v">Per-product models (Freepik Objects / LoRA) trained to guarantee accuracy to the real reference garments.</div></div>
+        <div class="spec"><div class="k">Prompt methodology</div><div class="v">A six-layer, nine-block hierarchical prompt system, documented and reused across every new product campaign.</div></div>
+        <div class="spec"><div class="k">Two-pass technique</div><div class="v">A generation chain I developed that strips over-processed artifacts without leaving the platform.</div></div>
+        <div class="spec"><div class="k">Product fidelity</div><div class="v">Per-product models (<em>Freepik Objects / LoRA</em>) trained to guarantee accuracy to the real reference garments.</div></div>
       </div>
       <div class="tagsline">Prompt engineering · Freepik / Magnific · GPT Image · Nano Banana Pro · LoRA / object training</div>
     </div>
   </section>
 
-  <!-- CLIP 04 — LENS ADAPTER -->
-  <section class="clip" id="adapter">
+  <!-- CLIP 04 — PROZIS STUDIO -->
+  <section class="clip" id="prozisstudio">
     <div class="slate-col">
       <div class="tc">TC 00:04:00:00</div>
       <div class="clipno">Clip 04</div>
+      <span class="status">Shipped · v10.11</span>
+    </div>
+    <div>
+      <h2>Prozis Studio — the pipeline, turned into a tool</h2>
+      <p class="sub">The prompt system above worked, but it didn't scale by hand. So I built the tool: a desktop app that runs the entire generation pipeline against a live API — crop, regenerate, composite — for a team that never touches a terminal.</p>
+
+      <div class="specs">
+        <div class="spec"><div class="k">API orchestration</div><div class="v">Python backend driving the <em>Magnific API</em> (Seedream 5 Pro Edit, Nano Banana Pro, Flux) — parallel task dispatch, polling, and a hard prompt-length guard before every request.</div></div>
+        <div class="spec"><div class="k">Computer vision, local</div><div class="v">Segmentation, mask union and membrane-fusion blending run entirely on-device — closing the seam between generated and photographed skin at <em>zero extra API cost</em>.</div></div>
+        <div class="spec"><div class="k">Built for non-engineers</div><div class="v">Single-file desktop app, double-click to run. Every design call driven by real production feedback from the team using it.</div></div>
+        <div class="spec"><div class="k">Shipped iteratively</div><div class="v">10+ versions in production use — each one closing a gap the previous version exposed.</div></div>
+      </div>
+
+      <div class="term-wrap">
+        <div class="term" aria-hidden="true">
+          <div class="term-bar"><i></i><i></i><i></i><span class="term-path">prozis-studio — validate</span></div>
+          <div class="term-body">
+            <div><span class="term-prompt">$</span> ./validate.sh --zip</div>
+            <div class="term-ok">47 suites · 203 assertions · <b>0 failures</b></div>
+            <div class="term-ok">ZIP verified byte-for-byte · 0 API credits spent<span class="term-cursor"></span></div>
+          </div>
+        </div>
+        <div class="term-cap">Every release validated against the shipped artifact, not just the working folder — the full suite runs in demo mode with a request listener proving no call ever reaches the paid API.</div>
+      </div>
+
+      <div class="tagsline">Python · REST API integration · Computer vision · Desktop app · Test-driven development</div>
+    </div>
+  </section>
+
+  <!-- CLIP 05 — LENS ADAPTER -->
+  <section class="clip" id="adapter">
+    <div class="slate-col">
+      <div class="tc">TC 00:05:00:00</div>
+      <div class="clipno">Clip 05</div>
       <span class="status">In design</span>
     </div>
     <div>
@@ -391,7 +440,7 @@ footer{
     <div class="skillgroups">
       <div class="sg"><div class="k">Native iOS</div><div class="tags"><i>Swift</i><i>SwiftUI</i><i>Metal</i><i>AVFoundation</i><i>ActivityKit / WidgetKit</i></div></div>
       <div class="sg"><div class="k">Cross-platform &amp; backend</div><div class="tags"><i>React Native</i><i>Expo</i><i>TypeScript</i><i>Node.js</i><i>Supabase / PostgreSQL</i></div></div>
-      <div class="sg"><div class="k">AI-native workflow</div><div class="tags"><i>Claude Code</i><i>MCP integrations</i><i>Agent-driven development</i><i>Prompt engineering</i></div></div>
+      <div class="sg"><div class="k">AI-native workflow</div><div class="tags"><i>Claude Code</i><i>MCP integrations</i><i>Agent-driven development</i><i>Python</i><i>Test-driven development</i></div></div>
       <div class="sg"><div class="k">Imaging &amp; AI</div><div class="tags"><i>Color science</i><i>Image processing</i><i>Prompt engineering</i><i>Freepik / Magnific</i><i>GPT Image</i><i>Nano Banana</i></div></div>
       <div class="sg"><div class="k">Beyond software</div><div class="tags"><i>OpenSCAD / CAD</i><i>Optical design</i><i>Professional photography</i><i>Git</i></div></div>
     </div>
