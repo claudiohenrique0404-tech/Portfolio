@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cláudio Machado — iOS Engineer</title>
-<meta name="description" content="Cláudio Machado — iOS engineer and full-stack developer. Film-simulation camera apps, AI image pipelines, and native mobile products. Portugal → Japan.">
+<title>Cláudio Machado — Product Design Engineer</title>
+<meta name="description" content="Cláudio Machado — product design engineer. AI-native platforms with human oversight, native iOS, and production image pipelines. Portugal, remote.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -277,8 +277,8 @@ footer{
 <section class="hero">
   <div class="hero-copy">
     <div class="eyebrow">100% REMOTE · ASYNC-FIRST · PORTUGAL (UTC+0)</div>
-    <h1>Cláudio<br>Machado<span class="thin">iOS Engineer</span></h1>
-    <p class="role">Full-stack engineer working where imaging meets code: native iOS down to the Metal shader, cross-platform product with a hardened backend, and production <b>AI image-generation pipelines</b>. I ship daily inside an AI-native workflow — <b>Claude Code</b>, custom MCP tooling, agent-driven pipelines. Vibe coding, with production standards.</p>
+    <h1>Cláudio<br>Machado<span class="thin">Product Design Engineer</span></h1>
+    <p class="role">I decide what an experience should feel like, then build it myself — through to production. Three <b>agent-driven platforms</b> in daily use at Prozis — embedded agents carry the work end-to-end, and people supervise, review and authorise what they produce; native iOS down to the Metal shader; and cross-platform product on a hardened backend. Photographer before engineer, so the visual bar is trained, not borrowed. I ship inside an AI-native workflow — <b>Claude Code</b>, custom MCP tooling, agent-driven pipelines — and never ship what I haven't reviewed.</p>
     <div class="hero-ctas">
       <a class="btn primary" href="mailto:claudiohenrique0404@icloud.com">Get in touch</a>
       <a class="btn" href="#latitude">See the work</a>
@@ -385,11 +385,11 @@ footer{
     <div class="slate-col">
       <div class="tc">TC 00:03:00:00</div>
       <div class="clipno">Clip 03</div>
-      <span class="status">In production · v11.16</span>
+      <span class="status">In production · v12.40</span>
     </div>
     <div>
       <h2>Prozis Studio — the pipeline, turned into a tool</h2>
-      <p class="sub">I coordinate the AI product-photography project for Prozis, a sportswear brand — and when the manual workflow stopped scaling, I built the tool that runs it. A desktop app that drives the whole pipeline against a live generation API: plan, generate, correct, upscale, reframe — for a team that never opens a terminal. Sixteen releases deep, in daily production use.</p>
+      <p class="sub">I coordinate the AI product-photography project for Prozis, a sportswear brand — and when the manual workflow stopped scaling, I built the tool that runs it. A desktop app that drives the whole pipeline against a live generation API: plan, generate, correct, upscale, reframe — for a team that never opens a terminal. Forty-plus releases deep, in daily production use.</p>
 
 
       <div class="specs">
@@ -397,8 +397,10 @@ footer{
         <div class="spec"><div class="k">Computer vision, on-device</div><div class="v">The client's constraint was zero paid APIs beyond the one provider — and that provider has no vision or segmentation endpoint. So all of it runs locally and free: <em>SegFormer</em> segmentation, mask union, and a <em>harmonic membrane fusion</em> (∇²F = 0, solved with Gauss–Seidel SOR) plus per-channel CDF histogram matching to close the seam between generated and photographed pixels.</div></div>
         <div class="spec"><div class="k">A generator as a measuring instrument</div><div class="v">To locate a garment with no detection endpoint available, the tool asks the cheapest model to <em>paint</em> it in a marker colour — auto-picked as whichever hue is least present in the source — then reads which pixels lit up. The painted image is discarded inside the function: what comes out is a bounding box, never pixels.</div></div>
         <div class="spec"><div class="k">Test discipline</div><div class="v">Around <em>60 suites</em>, all green, run against the packaged artifact rather than the working folder. The whole run executes in demo mode behind a network listener asserting that not one call reaches the paid API — <em>full coverage at zero credits</em>.</div></div>
+        <div class="spec"><div class="k">Autonomy, with an approved ceiling</div><div class="v">The agent simulates the cost, announces it in plain words and waits for <em>one</em> yes. Inside that budget it runs without interrupting: generate, then look at the result beside the real garment — logo orientation, drawstrings, collar, seams, colour, drape — write the verdict in concrete words, fold the named defect into the next prompt, repeat. At the ceiling it stops, even mid-run. <em>Nothing is applied automatically; the final call is always a human's.</em> This is the shape I believe autonomy should take: free inside a boundary a person drew.</div></div>
+        <div class="spec"><div class="k">Designed for failure, not just success</div><div class="v">Once the API returns a URL the generation is <em>already paid for</em> — so failing to fetch it is never an outcome. Three retries with growing waits, and if it still doesn't arrive the link is kept and flagged rather than discarded. The live job table, the upscale queue and the review flow are all built on the same principle: never silently lose work a human is waiting on.</div></div>
         <div class="spec"><div class="k">Built for non-engineers</div><div class="v">Single-file desktop app, double-click to run, two themes. Every design call driven by real production feedback from the person using it daily.</div></div>
-        <div class="spec"><div class="k">Shipped iteratively</div><div class="v">v8.0 → v11.16 in production use — each release closing a gap the previous one exposed, from a signed-int32 seed bug to a colour cast that turned out to be my own correction decaying to zero far from the seam.</div></div>
+        <div class="spec"><div class="k">Shipped iteratively</div><div class="v">v8.0 → v12.40 in production use — each release closing a gap the previous one exposed, from a signed-int32 seed bug to a colour cast that turned out to be my own correction decaying to zero far from the seam.</div></div>
       </div>
 
       <div class="shots" aria-label="Prozis Studio screenshots">
@@ -418,11 +420,58 @@ footer{
     </div>
   </section>
 
-  <!-- CLIP 04 — LENS ADAPTER -->
-  <section class="clip" id="adapter">
+
+  <!-- CLIP 04 — PROZIS TRY-ON -->
+  <section class="clip" id="provador">
     <div class="slate-col">
       <div class="tc">TC 00:04:00:00</div>
       <div class="clipno">Clip 04</div>
+      <span class="status">v1.49 · customer-facing</span>
+    </div>
+    <div>
+      <h2>Prozis Try-On — a fitting room that had to survive the real store</h2>
+      <p class="sub">A mobile PWA where a customer picks garments, sends a few photos and their height, and one tap returns them wearing the clothes. Two ways in: the app itself, or a button living inside a Prozis product page. Every hard decision in it came from a constraint I hit rather than a preference I had.</p>
+
+      <div class="specs">
+        <div class="spec"><div class="k">The discovery that chose the architecture</div><div class="v">prozis.com answers <em>410</em> to any read from outside a browser, and builds its gallery in JavaScript after the first request — a server-side scraper reads an empty shell, when it isn't shown the door. So the reader is the <em>button</em>, running inside the customer's own browser: JSON-LD → og: → DOM, thumbnails shrunk to 512&nbsp;px in canvas before they travel. No CORS, no bot-blocking, no banned IP, nothing to break when the template changes.</div></div>
+        <div class="spec"><div class="k">A code a human can read aloud</div><div class="v">Garments cross from the store to the app as a six-letter basket code drawn from a <em>confusion-free alphabet</em> — no O/0, I/1, L, S/5, B/8, Z/2, G/6. Open routes stay open (whoever pressed the button is already on the site and can't have a code yet); anything that spends money stays locked, behind a daily ceiling and a domain allowlist.</div></div>
+        <div class="spec"><div class="k">Read the product once, for everybody</div><div class="v">Each product sheet is classified a single time — category, English keyword, and per photo whether it is front / back / side / detail and whether it is <em>useful at all</em> (size charts and packaging go in the bin). Cached for 30 days. The scene's own orientation then drives the references: a back view asks for back photos, back base, back scene, in that order.</div></div>
+        <div class="spec"><div class="k">Degrading where the platform is poorer</div><div class="v">Inside a native WebView there is no camera API, no share sheet, no downloads folder. Each one falls to a working path — the native camera through a file field with <code>capture</code>, then the next step, then "hold your finger on the image" — instead of hanging. Detection first, then a route down; the same code in a browser and in the app, without <code>if</code>s scattered everywhere.</div></div>
+        <div class="spec"><div class="k">Privacy as a build rule</div><div class="v">Photos, prompts and names are never stored. Keys live only on the server. The store button touches no cart, no account, no cookie — it keeps one key in local storage and nothing else.</div></div>
+        <div class="spec"><div class="k">Test discipline</div><div class="v"><em>173 automated tests</em> — 112 browser, 39 server, 22 end-to-end from product page through basket to a dressed app — run against clean extraction, at zero credits spent.</div></div>
+      </div>
+      <div class="tagsline">Mobile PWA · Cloudflare Pages + Worker · KV · generative image APIs · native bridge (iOS / Android) · privacy by design</div>
+    </div>
+  </section>
+
+  <!-- CLIP 05 — PROZIS ATELIER -->
+  <section class="clip" id="atelier">
+    <div class="slate-col">
+      <div class="tc">TC 00:05:00:00</div>
+      <div class="clipno">Clip 05</div>
+      <span class="status">v0.7 · in build</span>
+    </div>
+    <div>
+      <h2>Prozis Atelier — giving the agent hands, and giving the human doubt</h2>
+      <p class="sub">A platform that turns reference photographs into a technical garment spec, then drives CLO3D itself — clean, open, simulate, measure, portrait, export GLB. The interesting problem was never the automation. It was making sure the specialist can always see how much the machine actually knew.</p>
+
+      <div class="specs">
+        <div class="spec"><div class="k">The agent decides; the platform refuses</div><div class="v">There is no photo → pattern feature in CLO3D — confirmed twice by CLO themselves — so the reading is the agent's job. It measures the garment against the mannequin and writes the entire 2D plan: panels, seams, prints. A verifier then checks that plan <em>before a single command reaches the 3D tool</em> — crossed outlines, points 0.22&nbsp;mm apart, seam pairs 99% mismatched, a print on a panel that doesn't exist — and predicts the finished height. Given a deliberately broken plan it caught all seven faults. <em>The platform decides nothing for the agent; it only refuses what cannot work.</em></div></div>
+        <div class="spec"><div class="k">Then it executes, end to end</div><div class="v">Draw, sew confirming every seam one by one, glue the prints onto the <em>flat</em> pattern so the simulation curves them the way real fabric does, hang, drape, simulate, measure, export GLB — 24 order types, no human touching the 3D tool.</div></div>
+        <div class="spec"><div class="k">Read / calculated / estimated</div><div class="v">Every field of the generated spec carries its own provenance label, so a measurement lifted from the reference never looks like one the model guessed. <em>Unmarked AI output invites misplaced trust</em> — the confidence marker is the feature, not a footnote.</div></div>
+        <div class="spec"><div class="k">The work never leaves the machine</div><div class="v">Photographs, .zprj, .glb and .dxf files stay in a folder the user picks at start-up, reached from the browser through the File System Access API. The cloud holds only access codes and keys — nothing of the work itself. Chrome or Edge required, deliberately.</div></div>
+        <div class="spec"><div class="k">A folder as the bridge</div><div class="v">The browser writes orders as JSON; a Python arm dropped inside CLO3D reads them, executes and writes results back — <em>24 order types</em>, reinstalled on every start so it can never drift out of date. It solved the plugin problem without a line of C++.</div></div>
+        <div class="spec"><div class="k">Access, per person</div><div class="v">Individual codes that can be paused or regenerated one at a time, and a back office that is separate by design — no door to it from inside the platform.</div></div>
+      </div>
+      <div class="tagsline">Cloudflare Pages · File System Access API · Python automation inside CLO3D · vision + forced tool use · JavaScript</div>
+    </div>
+  </section>
+
+  <!-- CLIP 06 — LENS ADAPTER -->
+  <section class="clip" id="adapter">
+    <div class="slate-col">
+      <div class="tc">TC 00:06:00:00</div>
+      <div class="clipno">Clip 06</div>
       <span class="status">In design</span>
     </div>
     <div>
@@ -445,6 +494,8 @@ footer{
   <section class="strip clip">
     <div class="slate-col"><div class="tc">KIT LIST</div><div class="clipno">Skills</div></div>
     <div class="skillgroups">
+      <div class="sg"><div class="k">Product design</div><div class="tags"><i>Product &amp; visual judgment</i><i>Interaction design</i><i>Rapid prototyping</i><i>User validation</i><i>Responsive design</i><i>Accessibility</i></div></div>
+      <div class="sg"><div class="k">AI-native product</div><div class="tags"><i>Human-in-the-loop interfaces</i><i>Confidence &amp; provenance patterns</i><i>Evaluating AI failure modes</i><i>Generative-model APIs</i><i>Prompt engineering</i></div></div>
       <div class="sg"><div class="k">Native iOS</div><div class="tags"><i>Swift</i><i>SwiftUI</i><i>Metal</i><i>Core Image</i><i>AVFoundation</i><i>Core ML</i><i>StoreKit 2</i><i>App Intents / WidgetKit</i></div></div>
       <div class="sg"><div class="k">Cross-platform &amp; backend</div><div class="tags"><i>React Native</i><i>Expo</i><i>TypeScript</i><i>Reanimated</i><i>Node.js</i><i>Python</i><i>Supabase / PostgreSQL</i><i>RLS &amp; SQL migrations</i></div></div>
       <div class="sg"><div class="k">AI-native workflow</div><div class="tags"><i>Claude Code</i><i>MCP integrations</i><i>Agent-driven development</i><i>Python</i><i>Test-driven development</i></div></div>
