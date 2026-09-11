@@ -41,7 +41,7 @@ window.LB=(function(){
       if(p.type==='back'){ var b=document.createElement('div'); b.className='page page-back pg-left'; b.setAttribute('data-density','hard');
         b.innerHTML='<div class="back-inner"><h2>'+esc(site.name)+'</h2><p class="mono">'+esc(site.email)+' &nbsp;·&nbsp; '+esc(site.phone)+'</p><p class="mono">'+esc(site.url)+'</p></div>'; out.push(b); return; }
       var html=spreadHTML(p,map), srcs=tintSources(p,map);
-      ['left','right'].forEach(function(side){ var pg=document.createElement('div'); pg.className='page half-sp pg-'+side;
+      ['left','right'].forEach(function(side){ var pg=document.createElement('div'); pg.className='page half-sp pg-'+side; pg.setAttribute('data-density','hard');
         pg.innerHTML='<div class="sp '+side+'">'+html+'</div>'; if(srcs.length) tint(srcs[0],pg); else pg.style.background='#0C0C0C'; out.push(pg); });
     });
     return out;
@@ -54,13 +54,12 @@ window.LB=(function(){
   function buildVideoPages(content,map){
     var site=content.site, book=content.video, out=[];
     var c=document.createElement('div'); c.className='page vpage vcover'; c.setAttribute('data-density','hard');
-    c.style.backgroundImage='url("'+esc(resolve(book.coverImage,map))+'")';
-    c.innerHTML='<div class="vcap"><h3 class="big">'+esc(site.name)+'</h3><p class="mono">'+esc((book.sub||'VIDEO LOOKBOOK').toUpperCase())+' &nbsp;·&nbsp; 2026</p></div>'; out.push(c);
+    c.innerHTML='<img class="vbg" style="object-position:'+(book.pageCoverAnchor==null?50:book.pageCoverAnchor)+'% 50%" src="'+esc(resolve(book.pageCover||book.coverImage,map))+'" alt=""><div class="vcap"><h3 class="big">'+esc(site.name)+'</h3><p class="mono">'+esc((book.sub||'VIDEO LOOKBOOK').toUpperCase())+' &nbsp;·&nbsp; 2026</p></div>'; out.push(c);
     book.pages.forEach(function(v,i){ var media;
       if(v.youtube) media='<iframe src="https://www.youtube-nocookie.com/embed/'+esc(v.youtube)+'?rel=0&modestbranding=1" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>';
       else if(v.vimeo) media='<iframe src="https://player.vimeo.com/video/'+esc(v.vimeo)+'?title=0&byline=0&portrait=0" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>';
       else media='<video src="'+esc(resolve(v.src,map))+'"'+(v.poster?' poster="'+esc(resolve(v.poster,map))+'"':'')+' controls playsinline preload="metadata"></video>';
-      var d=document.createElement('div'); d.className='page vpage';
+      var d=document.createElement('div'); d.className='page vpage'; d.setAttribute('data-density','hard');
       d.innerHTML=media+'<div class="vcap"><h3>'+esc(v.title||'')+'</h3><p class="mono">'+esc(v.sub||'')+'</p></div><p class="mono vnum">'+String(i+1).padStart(2,'0')+' / '+String(book.pages.length).padStart(2,'0')+'</p>'; out.push(d); });
     var e=document.createElement('div'); e.className='page vpage vend'; e.setAttribute('data-density','hard');
     e.innerHTML='<h3 class="big">'+esc(site.name)+'</h3><p class="mono">'+esc(site.email)+' &nbsp;·&nbsp; '+esc(site.phone)+'</p><p class="mono">'+esc(site.url)+'</p>'; out.push(e);

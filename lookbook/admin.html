@@ -70,7 +70,7 @@ input[type=file]{display:none}
 .vpage .vcap{position:absolute;left:3.5%;bottom:5%;z-index:2;text-shadow:0 1px 8px rgba(0,0,0,.7)}
 .vpage .vcap h3{font-weight:300;font-size:2em;margin-bottom:.3em}.vpage h3.big{font-size:3.2em}
 .vpage .vnum{position:absolute;right:3.5%;bottom:5%;z-index:2}
-.vpage.vcover{background-size:cover;background-position:center}.vpage.vcover:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.75),rgba(0,0,0,.2) 55%,rgba(0,0,0,0))}
+.vpage.vcover .vbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.vpage.vcover:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.75),rgba(0,0,0,.2) 55%,rgba(0,0,0,0))}
 .vpage.vend{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;text-align:center}
 
 </style></head>
@@ -165,7 +165,7 @@ input[type=file]{display:none}
   function renderForm(){ var F=$('#form');
     if(tab==='site'){ var s=C.site; F.innerHTML='<h3>Site</h3>'+['name','tagline','email','phone','url'].map(function(k){return '<label>'+k+'</label><input type="text" data-site="'+k+'" value="'+LB.esc(s[k]||'')+'">';}).join('')
         +'<h3 style="margin-top:22px">Livro de imagens (entrada)</h3><label>Etiqueta</label><input type="text" data-book="images.label" value="'+LB.esc(C.images.label)+'"><label>Subtítulo</label><input type="text" data-book="images.sub" value="'+LB.esc(C.images.sub)+'">'+imgField(C.images,'coverImage','Capa do livro (vertical)','image/*')
-        +'<h3 style="margin-top:22px">Livro de vídeo (entrada)</h3><label>Etiqueta</label><input type="text" data-book="video.label" value="'+LB.esc(C.video.label)+'"><label>Subtítulo</label><input type="text" data-book="video.sub" value="'+LB.esc(C.video.sub)+'">'+imgField(C.video,'coverImage','Capa do livro (vertical)','image/*');
+        +'<h3 style="margin-top:22px">Livro de vídeo (entrada)</h3><label>Etiqueta</label><input type="text" data-book="video.label" value="'+LB.esc(C.video.label)+'"><label>Subtítulo</label><input type="text" data-book="video.sub" value="'+LB.esc(C.video.sub)+'">'+imgField(C.video,'coverImage','Capa do livro na estante (vertical)','image/*')+imgField(C.video,'pageCover','Primeira página do livro de vídeo (horizontal 16:9)','image/*');
       F.querySelectorAll('[data-site]').forEach(function(i){ i.oninput=function(){ C.site[i.dataset.site]=i.value; setDirty(true); }; });
       F.querySelectorAll('[data-book]').forEach(function(i){ i.oninput=function(){ var k=i.dataset.book.split('.'); C[k[0]][k[1]]=i.value; setDirty(true); }; });
       wirePickers(F,function(key){ return key==='coverImage'?null:null; }); return; }

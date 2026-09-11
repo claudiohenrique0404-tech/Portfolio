@@ -1,28 +1,124 @@
 {
-  "site": {"name": "Cláudio Machado", "tagline": "Art direction · image · video · 2026",
-           "email": "claudiohenrique0404@icloud.com", "phone": "+351 916 128 440", "url": "claudiohenrique0404-tech.github.io/Portfolio"},
-  "images": {"label": "Images", "sub": "Lookbook · 01", "coverImage": "img/cover-images.jpg",
+  "site": {
+    "name": "Cláudio Machado",
+    "tagline": "Art direction · image · video · 2026",
+    "email": "claudiohenrique0404@icloud.com",
+    "phone": "+351 916 128 440",
+    "url": "claudiohenrique0404-tech.github.io/Portfolio"
+  },
+  "images": {
+    "label": "Images",
+    "sub": "Lookbook · 01",
+    "coverImage": "img/cover-images.jpg",
     "pages": [
-      {"type": "cover", "image": "img/butterfly.jpg", "title": "Cláudio Machado", "sub": "LOOKBOOK · 2026", "corner": "ART DIRECTION · IMAGE PRODUCTION"},
-      {"type": "statement", "text": "Every image in this book was produced in Prozis Studio — a platform I designed and built.", "lines": ["01   APPAREL", "02   NUTRITION", "03   FOOTWEAR"]},
-      {"type": "opener", "num": "01", "title": "Apparel"},
-      {"type": "bleed", "image": "img/concrete.jpg", "anchor": 66},
-      {"type": "bleed", "image": "img/rings.jpg", "anchor": 58},
-      {"type": "bleed", "image": "img/woman.jpg", "anchor": 55},
-      {"type": "stack", "top": "img/couple-high.jpg", "bottom": "img/couple-low.jpg"},
-      {"type": "pair", "left": "img/tee-back.jpg", "right": "img/tee-front.jpg"},
-      {"type": "opener", "num": "02", "title": "Nutrition"},
-      {"type": "stack", "top": "img/whey.jpg", "bottom": "img/cookies.jpg"},
-      {"type": "colsq", "column": "img/cake.jpg", "square": "img/waffle-cut.jpg", "columnLeft": true},
-      {"type": "bleed", "image": "img/waffle-break.jpg", "anchor": 50},
-      {"type": "colsq", "column": "img/beans.jpg", "square": "img/cream.jpg", "columnLeft": false},
-      {"type": "bleed", "image": "img/mug.jpg", "anchor": 50},
-      {"type": "openerimg", "num": "03", "title": "Footwear", "image": "img/plum.jpg"},
-      {"type": "back"}
-    ]},
-  "video": {"label": "Video", "sub": "Lookbook · 02", "coverImage": "img/cover-video.jpg",
+      {
+        "type": "cover",
+        "image": "img/butterfly.jpg",
+        "title": "Cláudio Machado",
+        "sub": "LOOKBOOK · 2026",
+        "corner": "ART DIRECTION · IMAGE PRODUCTION"
+      },
+      {
+        "type": "statement",
+        "text": "Every image in this book was produced in Prozis Studio — a platform I designed and built.",
+        "lines": [
+          "01   APPAREL",
+          "02   NUTRITION",
+          "03   FOOTWEAR"
+        ]
+      },
+      {
+        "type": "opener",
+        "num": "01",
+        "title": "Apparel"
+      },
+      {
+        "type": "bleed",
+        "image": "img/concrete.jpg",
+        "anchor": 66
+      },
+      {
+        "type": "bleed",
+        "image": "img/rings.jpg",
+        "anchor": 58
+      },
+      {
+        "type": "bleed",
+        "image": "img/woman.jpg",
+        "anchor": 55
+      },
+      {
+        "type": "stack",
+        "top": "img/couple-high.jpg",
+        "bottom": "img/couple-low.jpg"
+      },
+      {
+        "type": "pair",
+        "left": "img/tee-back.jpg",
+        "right": "img/tee-front.jpg"
+      },
+      {
+        "type": "opener",
+        "num": "02",
+        "title": "Nutrition"
+      },
+      {
+        "type": "stack",
+        "top": "img/whey.jpg",
+        "bottom": "img/cookies.jpg"
+      },
+      {
+        "type": "colsq",
+        "column": "img/cake.jpg",
+        "square": "img/waffle-cut.jpg",
+        "columnLeft": true
+      },
+      {
+        "type": "bleed",
+        "image": "img/waffle-break.jpg",
+        "anchor": 50
+      },
+      {
+        "type": "colsq",
+        "column": "img/beans.jpg",
+        "square": "img/cream.jpg",
+        "columnLeft": false
+      },
+      {
+        "type": "bleed",
+        "image": "img/mug.jpg",
+        "anchor": 50
+      },
+      {
+        "type": "openerimg",
+        "num": "03",
+        "title": "Footwear",
+        "image": "img/plum.jpg"
+      },
+      {
+        "type": "back"
+      }
+    ]
+  },
+  "video": {
+    "label": "Video",
+    "sub": "Lookbook · 02",
+    "coverImage": "img/cover-video.jpg",
     "pages": [
-      {"src": "video/demo-01.mp4", "poster": "video/demo-01.jpg", "title": "Demo clip — replace me", "sub": "Prozis · apparel"},
-      {"src": "video/demo-02.mp4", "poster": "video/demo-02.jpg", "title": "Demo clip — replace me", "sub": "Prozis · apparel"}
-    ]}
+      {
+        "src": "video/demo-01.mp4",
+        "poster": "video/demo-01.jpg",
+        "title": "Demo clip — replace me",
+        "sub": "Prozis · apparel"
+      },
+      {
+        "src": "video/demo-02.mp4",
+        "poster": "video/demo-02.jpg",
+        "title": "Demo clip — replace me",
+        "sub": "Prozis · apparel"
+      }
+    ],
+    "pageCover": "img/rings.jpg",
+    "pageCoverAnchor": 58
+  }
 }
