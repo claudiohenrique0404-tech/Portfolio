@@ -98,7 +98,8 @@
       {
         "type": "back"
       }
-    ]
+    ],
+    "coverStyle": "plain"
   },
   "video": {
     "label": "Video",
@@ -119,6 +120,7 @@
       }
     ],
     "pageCover": "img/rings.jpg",
-    "pageCoverAnchor": 58
+    "pageCoverAnchor": 58,
+    "coverStyle": "plain"
   }
 }
