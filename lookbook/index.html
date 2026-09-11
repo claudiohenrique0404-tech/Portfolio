@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Cláudio Machado — Lookbook 2026</title>
+<meta name="description" content="Art direction and image production — Cláudio Machado, 2026">
+<style>
+@font-face{font-family:Serif;src:url(fonts/Cormorant-Light.ttf) format("truetype");font-weight:300}
+@font-face{font-family:Mono;src:url(fonts/IBMPlexMono-Regular.ttf) format("truetype")}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#050505;color:#EDE9E3;font-family:Serif,Georgia,serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+.mono{font-family:Mono,ui-monospace,monospace;font-size:11px;letter-spacing:.14em;color:#8A857E;text-transform:uppercase}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:44px 4vw 64px}
+#book{box-shadow:0 40px 120px rgba(0,0,0,.8)}
+.page{background:#0B0B0B;overflow:hidden}
+.half{background-size:200% 100%;background-repeat:no-repeat}
+.half.left{background-position:0 0}
+.half.right{background-position:100% 0}
+.s02{background-image:url(img/s-02.jpg)}
+.s03{background-image:url(img/s-03.jpg)}
+.s04{background-image:url(img/s-04.jpg)}
+.s05{background-image:url(img/s-05.jpg)}
+.s06{background-image:url(img/s-06.jpg)}
+.s07{background-image:url(img/s-07.jpg)}
+.s08{background-image:url(img/s-08.jpg)}
+.s09{background-image:url(img/s-09.jpg)}
+.s10{background-image:url(img/s-10.jpg)}
+.s11{background-image:url(img/s-11.jpg)}
+.s12{background-image:url(img/s-12.jpg)}
+.s13{background-image:url(img/s-13.jpg)}
+.s14{background-image:url(img/s-14.jpg)}
+.s15{background-image:url(img/s-15.jpg)}
+
+.page-cover,.page-back{background:#0B0B0B;position:relative}
+.cover-inner{position:absolute;inset:0;background:#1a0f09}
+.cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%}
+.cover-inner:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.25) 45%,rgba(0,0,0,0) 70%)}
+.cover-text{position:absolute;left:8%;bottom:14%;z-index:2}
+.cover-text h1{font-weight:300;font-size:clamp(22px,3.2vw,44px);line-height:1;margin-bottom:.6em;letter-spacing:.01em}
+.corner{position:absolute;left:8%;bottom:5%;font-size:9px;z-index:2}
+.back-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:10%}
+.back-inner h2{font-weight:300;font-size:clamp(18px,2.2vw,30px);margin-bottom:8px}
+.back-inner .small{margin-top:26px;font-size:9px;text-transform:none;letter-spacing:.06em;line-height:1.6;max-width:32ch}
+#ui{position:fixed;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:18px;align-items:center;z-index:5}
+#ui button{background:transparent;border:1px solid #2a2a2a;color:#8A857E;font-family:Mono,monospace;font-size:10px;letter-spacing:.12em;padding:8px 14px;cursor:pointer;border-radius:2px}
+#ui button:hover{color:#EDE9E3;border-color:#555}
+#counter{font-family:Mono,monospace;font-size:10px;letter-spacing:.12em;color:#5C5852;min-width:80px;text-align:center}
+#hint{position:fixed;top:14px;left:0;right:0;text-align:center;font-family:Mono,monospace;font-size:9px;letter-spacing:.16em;color:#3a3835;text-transform:uppercase}
+@media (max-width:700px){#hint{display:none}}
+</style></head>
+<body>
+<div id="hint">Click or drag the page edge · ← → keys</div>
+<div id="stage"><div id="book">
+<div class="page page-cover" data-density="hard"><div class="cover-inner"><img class="cover-img" src="img/cover.jpg" alt=""><div class="cover-text"><h1>Cláudio Machado</h1><p class="mono">L O O K B O O K &nbsp;·&nbsp; 2 0 2 6</p></div><p class="mono corner">ART DIRECTION · IMAGE PRODUCTION</p></div></div><div class="page half left s02"></div><div class="page half right s02"></div><div class="page half left s03"></div><div class="page half right s03"></div><div class="page half left s04"></div><div class="page half right s04"></div><div class="page half left s05"></div><div class="page half right s05"></div><div class="page half left s06"></div><div class="page half right s06"></div><div class="page half left s07"></div><div class="page half right s07"></div><div class="page half left s08"></div><div class="page half right s08"></div><div class="page half left s09"></div><div class="page half right s09"></div><div class="page half left s10"></div><div class="page half right s10"></div><div class="page half left s11"></div><div class="page half right s11"></div><div class="page half left s12"></div><div class="page half right s12"></div><div class="page half left s13"></div><div class="page half right s13"></div><div class="page half left s14"></div><div class="page half right s14"></div><div class="page half left s15"></div><div class="page half right s15"></div><div class="page page-back" data-density="hard"><div class="back-inner"><h2>Cláudio Machado</h2><p class="mono">claudiohenrique0404@icloud.com &nbsp;·&nbsp; +351 916 128 440</p><p class="mono">claudiohenrique0404-tech.github.io/Portfolio</p><p class="mono small">Every image in this book was produced in Prozis Studio, a platform I designed and built.</p></div></div>
+</div></div>
+<div id="ui"><button id="prev">← Prev</button><span id="counter"></span><button id="next">Next →</button><button id="fs">Fullscreen</button></div>
+<script src="js/page-flip.browser.js"></script>
+<script>
+(function(){
+  var stage=document.getElementById('stage'), el=document.getElementById('book');
+  // page ratio A4 portrait (each half of a landscape spread)
+  var R=210/297;
+  function dims(){
+    var W=stage.clientWidth, H=stage.clientHeight;
+    var single=window.innerWidth<700;                 // phone: one page at a time
+    var pw=single?Math.min(W,H*R):Math.min(W/2,H*R);
+    var ph=pw/R;
+    return {w:Math.floor(pw),h:Math.floor(ph),single:single};
+  }
+  var d=dims();
+  var flip=new St.PageFlip(el,{width:d.w,height:d.h,size:'fixed',showCover:true,usePortrait:d.single,
+    flippingTime:800,maxShadowOpacity:.55,drawShadow:true,mobileScrollSupport:false,useMouseEvents:true,swipeDistance:20});
+  flip.loadFromHTML(document.querySelectorAll('.page'));
+  var counter=document.getElementById('counter'), total=flip.getPageCount();
+  function upd(){ var p=flip.getCurrentPageIndex(); counter.textContent=(p===0?'COVER':(p>=total-1?'END':String(p).padStart(2,'0')+' / '+String(total-2).padStart(2,'0'))); }
+  flip.on('flip',upd); upd();
+  document.getElementById('next').onclick=function(){flip.flipNext();};
+  document.getElementById('prev').onclick=function(){flip.flipPrev();};
+  document.addEventListener('keydown',function(e){ if(e.key==='ArrowRight')flip.flipNext(); if(e.key==='ArrowLeft')flip.flipPrev(); });
+  document.getElementById('fs').onclick=function(){ var de=document.documentElement; (document.fullscreenElement?document.exitFullscreen():de.requestFullscreen&&de.requestFullscreen()); };
+  var t; window.addEventListener('resize',function(){ clearTimeout(t); t=setTimeout(function(){ var n=dims(); flip.update({width:n.w,height:n.h,usePortrait:n.single}); },150); });
+})();
+</script>
+</body></html>
