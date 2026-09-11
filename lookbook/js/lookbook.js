@@ -10,9 +10,9 @@ window.LB=(function(){
     var im=new Image(); im.onload=function(){
       try{ var c=document.createElement('canvas'); c.width=16; c.height=16; var x=c.getContext('2d'); x.drawImage(im,0,0,16,16);
         var d=x.getImageData(0,0,16,16).data, r=0,g=0,b=0,n=256; for(var i=0;i<d.length;i+=4){r+=d[i];g+=d[i+1];b+=d[i+2];}
-        r/=n;g/=n;b/=n; var L=(0.2126*r+0.7152*g+0.0722*b)/255||.001, k=0.04/L; var m=(r+g+b)/3;
-        var f=function(v){return Math.round(Math.min(255,(m+(v-m)*.75)*k));};
-        var col='rgb('+f(r)+','+f(g)+','+f(b)+')'; tintCache[src]=col; el.style.background=col; }catch(e){}
+        r/=n;g/=n;b/=n; var L=(0.2126*r+0.7152*g+0.0722*b)/255||.001, k=0.07/L; var m=(r+g+b)/3;
+        var f=function(v,base){ var t=Math.min(255,(m+(v-m)*.7)*k); return Math.round(t*.55+base*.45); };   // image colour, darkened, blended into chocolate
+        var col='rgb('+f(r,44)+','+f(g,26)+','+f(b,17)+')'; tintCache[src]=col; el.style.background=col; }catch(e){}
     }; im.src=src;
   }
 
@@ -24,13 +24,14 @@ window.LB=(function(){
       case 'openerimg': return '<div class="sp-in opener"><p class="mono num">'+esc(p.num)+'</p><h2>'+esc(p.title)+'</h2><img class="col right" src="'+R('image')+'" alt=""></div>';
       case 'bleed':     return '<div class="sp-in bleed" style="background-image:url(\''+R('image')+'\');background-position:'+(p.anchor==null?50:p.anchor)+'% 50%"></div>';
       case 'strip':     return '<div class="sp-in strip"><img src="'+R('image')+'" alt=""></div>';
+      case 'column':    return '<div class="sp-in column"><img src="'+R('image')+'" alt=""></div>';
       case 'stack':     return '<div class="sp-in stack"><img src="'+R('top')+'" alt=""><img src="'+R('bottom')+'" alt=""></div>';
       case 'pair':      return '<div class="sp-in pair"><img src="'+R('left')+'" alt=""><img src="'+R('right')+'" alt=""></div>';
       case 'colsq':     return '<div class="sp-in colsq'+(p.columnLeft===false?' rev':'')+'"><img class="c" src="'+R('column')+'" alt=""><img class="s" src="'+R('square')+'" alt=""></div>';
       default: return '<div class="sp-in"></div>';
     }
   }
-  function tintSources(p,map){ var k={bleed:['image'],strip:['image'],stack:['top','bottom'],pair:['left','right'],colsq:['column','square'],openerimg:['image']}[p.type]||[]; return k.map(function(x){return resolve(p[x],map);}); }
+  function tintSources(p,map){ var k={bleed:['image'],strip:['image'],column:['image'],stack:['top','bottom'],pair:['left','right'],colsq:['column','square'],openerimg:['image']}[p.type]||[]; return k.map(function(x){return resolve(p[x],map);}); }
 
   /* returns array of page elements for the image book */
   function buildImagePages(content,map){
@@ -42,14 +43,14 @@ window.LB=(function(){
         b.innerHTML='<div class="back-inner"><h2>'+esc(site.name)+'</h2><p class="mono">'+esc(site.email)+' &nbsp;·&nbsp; '+esc(site.phone)+'</p><p class="mono">'+esc(site.url)+'</p></div>'; out.push(b); return; }
       var html=spreadHTML(p,map), srcs=tintSources(p,map);
       ['left','right'].forEach(function(side){ var pg=document.createElement('div'); pg.className='page half-sp pg-'+side; pg.setAttribute('data-density','hard');
-        pg.innerHTML='<div class="sp '+side+'">'+html+'</div>'; if(srcs.length) tint(srcs[0],pg); else pg.style.background='#0C0C0C'; out.push(pg); });
+        pg.innerHTML='<div class="sp '+side+'">'+html+'</div>'; if(srcs.length) tint(srcs[0],pg.firstChild); out.push(pg); });
     });
     return out;
   }
   /* single spread preview element (admin) */
   function spreadPreview(p,content,map){ var d=document.createElement('div'); d.className='sp-preview';
     if(p.type==='cover'||p.type==='back'){ var pages=buildImagePages({site:content.site,images:{pages:[p]}},map); d.classList.add('single'); d.appendChild(pages[0]); return d; }
-    d.innerHTML=spreadHTML(p,map); var s=tintSources(p,map); if(s.length) tint(s[0],d); else d.style.background='#0C0C0C'; return d; }
+    d.innerHTML=spreadHTML(p,map); var s=tintSources(p,map); if(s.length) tint(s[0],d); return d; }
 
   function buildVideoPages(content,map){
     var site=content.site, book=content.video, out=[];

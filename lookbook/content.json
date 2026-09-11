@@ -23,8 +23,9 @@
         "text": "Every image in this book was produced in Prozis Studio — a platform I designed and built.",
         "lines": [
           "01   APPAREL",
-          "02   NUTRITION",
-          "03   FOOTWEAR"
+          "02   EQUIPMENT",
+          "03   NUTRITION",
+          "04   FOOTWEAR"
         ]
       },
       {
@@ -58,8 +59,28 @@
         "right": "img/tee-front.jpg"
       },
       {
+        "type": "pair",
+        "left": "img/gym-pullup.jpg",
+        "right": "img/gym-cable.jpg"
+      },
+      {
         "type": "opener",
         "num": "02",
+        "title": "Equipment"
+      },
+      {
+        "type": "pair",
+        "left": "img/straps-pair.jpg",
+        "right": "img/straps-single.jpg"
+      },
+      {
+        "type": "bleed",
+        "image": "img/straps-bar.jpg",
+        "anchor": 50
+      },
+      {
+        "type": "opener",
+        "num": "03",
         "title": "Nutrition"
       },
       {
@@ -79,6 +100,28 @@
         "anchor": 50
       },
       {
+        "type": "pair",
+        "left": "img/cookie-splash.jpg",
+        "right": "img/cracker-splash.jpg"
+      },
+      {
+        "type": "colsq",
+        "column": "img/choc-swirl.jpg",
+        "square": "img/black-series.jpg",
+        "columnLeft": true
+      },
+      {
+        "type": "bleed",
+        "image": "img/peanut-syrup.jpg",
+        "anchor": 50
+      },
+      {
+        "type": "colsq",
+        "column": "img/cookie-grid.jpg",
+        "square": "img/container-macro.jpg",
+        "columnLeft": false
+      },
+      {
         "type": "colsq",
         "column": "img/beans.jpg",
         "square": "img/cream.jpg",
@@ -90,10 +133,18 @@
         "anchor": 50
       },
       {
+        "type": "strip",
+        "image": "img/coffee-beans-2.jpg"
+      },
+      {
         "type": "openerimg",
-        "num": "03",
+        "num": "04",
         "title": "Footwear",
         "image": "img/plum.jpg"
+      },
+      {
+        "type": "column",
+        "image": "img/butterfly.jpg"
       },
       {
         "type": "back"
@@ -107,16 +158,58 @@
     "coverImage": "img/cover-video.jpg",
     "pages": [
       {
-        "src": "video/demo-01.mp4",
-        "poster": "video/demo-01.jpg",
-        "title": "Demo clip — replace me",
-        "sub": "Prozis · apparel"
+        "src": "video/coffee-pour.mp4",
+        "poster": "video/coffee-pour.jpg",
+        "title": "Coffee — the pour",
+        "sub": "Prozis · nutrition · ultra slow motion"
       },
       {
-        "src": "video/demo-02.mp4",
-        "poster": "video/demo-02.jpg",
-        "title": "Demo clip — replace me",
-        "sub": "Prozis · apparel"
+        "src": "video/choc-waffle.mp4",
+        "poster": "video/choc-waffle.jpg",
+        "title": "Chocolate over waffle",
+        "sub": "Prozis · nutrition"
+      },
+      {
+        "src": "video/waffle-slowmo.mp4",
+        "poster": "video/waffle-slowmo.jpg",
+        "title": "Protein waffle — slow motion",
+        "sub": "Prozis · nutrition"
+      },
+      {
+        "src": "video/waffles-box.mp4",
+        "poster": "video/waffles-box.jpg",
+        "title": "High Protein Waffles — spot",
+        "sub": "Prozis · nutrition · packaging to product"
+      },
+      {
+        "src": "video/cookie-orbit.mp4",
+        "poster": "video/cookie-orbit.jpg",
+        "title": "Protein cookie — orbit",
+        "sub": "Prozis · nutrition · 3D motion"
+      },
+      {
+        "src": "video/syrup-peanuts.mp4",
+        "poster": "video/syrup-peanuts.jpg",
+        "title": "Syrup over peanuts",
+        "sub": "Prozis · nutrition · macro"
+      },
+      {
+        "src": "video/spread-macro.mp4",
+        "poster": "video/spread-macro.jpg",
+        "title": "Spread — macro",
+        "sub": "Prozis · nutrition"
+      },
+      {
+        "src": "video/almonds.mp4",
+        "poster": "video/almonds.jpg",
+        "title": "Almonds — freefall",
+        "sub": "Prozis · nutrition · macro"
+      },
+      {
+        "src": "video/collagen.mp4",
+        "poster": "video/collagen.jpg",
+        "title": "Collagen Peptides — kitchen",
+        "sub": "Prozis · nutrition · lifestyle"
       }
     ],
     "pageCover": "img/rings.jpg",

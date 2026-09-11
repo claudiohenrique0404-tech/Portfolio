@@ -31,7 +31,7 @@ input[type=file]{display:none}
 .range{display:flex;gap:10px;align-items:center}.range input{flex:1}
 /* preview */
 .pvwrap{display:flex;flex-direction:column;gap:10px;align-items:center}
-.sp-preview{position:relative;width:100%;aspect-ratio:297/210;background:#0c0c0c;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6);font-family:Serif,serif;color:#EDE9E3;font-size:calc(100% * .9)}
+.sp-preview{position:relative;width:100%;aspect-ratio:297/210;background:#3a2417;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6);font-family:Serif,serif;color:#EDE9E3;font-size:calc(100% * .9)}
 .sp-preview.single{aspect-ratio:210/297;width:50%}.sp-preview .page{position:absolute;inset:0}
 .vpv{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;font-family:Serif,serif;color:#EDE9E3}
 .vpv .page{position:absolute;inset:0}
@@ -43,12 +43,14 @@ input[type=file]{display:none}
 .note{background:#151516;border:1px dashed #333;padding:10px;border-radius:6px;color:#8A857E;font-size:12px;margin-top:12px}
 .dirty{color:#f0b429;font-size:11px;margin-left:6px}
 /* ---- shared book styles (viewer + admin preview) ---- */
-.page{background:#0B0B0B;overflow:hidden;position:relative}
+.page{background:var(--choc-800,#2c1a11);overflow:hidden;position:relative}
+.half-sp .sp{background:var(--choc-700,#3a2417)}
 .half-sp .sp{position:absolute;top:0;height:100%;width:200%}
 .half-sp .sp.left{left:0}.half-sp .sp.right{left:-100%}
 .sp-in{position:absolute;inset:0}
 .sp-in.bleed{background-size:cover;background-repeat:no-repeat}
 .sp-in.strip{display:flex;align-items:center;justify-content:center}.sp-in.strip img{width:100%;height:auto;display:block}
+.sp-in.column{display:flex;align-items:center;justify-content:center;padding:6.7% 4.7%}.sp-in.column img{height:100%;width:auto;object-fit:contain;display:block;box-shadow:0 20px 50px rgba(0,0,0,.45)}
 .sp-in.stack{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4%;padding:6.7% 4.7%}.sp-in.stack img{width:100%;height:auto;max-height:46%;object-fit:contain;display:block}
 .sp-in.pair{display:flex;align-items:center;justify-content:center;gap:1.4%;padding:6.7% 4.7%}.sp-in.pair img{height:100%;width:auto;max-width:49%;object-fit:contain;display:block}
 .sp-in.colsq{display:flex;align-items:center;justify-content:center;gap:2%;padding:6.7% 4.7%}.sp-in.colsq.rev{flex-direction:row-reverse}
@@ -58,15 +60,15 @@ input[type=file]{display:none}
 .sp-in.opener img.col{position:absolute;right:4.7%;top:6.7%;height:86.6%;width:auto;object-fit:contain}
 .sp-in.statement .st{position:absolute;left:4.7%;top:30%;width:60%;font-weight:300;font-size:2.1em;line-height:1.35}
 .sp-in.statement .lines{position:absolute;left:4.7%;top:66%;line-height:1.9;font-size:.75em}
-.page-cover .cover-inner{position:absolute;inset:0;background:#1a0f09}
+.page-cover .cover-inner{position:absolute;inset:0;background:var(--choc-900,#1f130c)}
 .page-cover .cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%}
 .page-cover .cover-inner:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.25) 45%,rgba(0,0,0,0) 70%)}
 .page-cover .cover-text{position:absolute;left:8%;bottom:14%;z-index:2}.page-cover h1{font-weight:300;font-size:3.3em;line-height:1;margin-bottom:.5em}
 .page-cover .corner{position:absolute;left:8%;bottom:5%;font-size:.7em;z-index:2}
 .page-back .back-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:10%}
 .page-back h2{font-weight:300;font-size:2.2em;margin-bottom:6px}
-.vpage{position:relative;background:#0B0B0B}
-.vpage video,.vpage iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;background:#000}
+.vpage{position:relative;background:var(--choc-900,#1f130c)}
+.vpage video,.vpage iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border:0;background:var(--choc-900,#1f130c)}
 .vpage .vcap{position:absolute;left:3.5%;bottom:5%;z-index:2;text-shadow:0 1px 8px rgba(0,0,0,.7)}
 .vpage .vcap h3{font-weight:300;font-size:2em;margin-bottom:.3em}.vpage h3.big{font-size:3.2em}
 .vpage .vnum{position:absolute;right:3.5%;bottom:5%;z-index:2}
@@ -111,11 +113,11 @@ input[type=file]{display:none}
 <script>
 (function(){
   var C=null, tab='images', sel=0, uploads={}, urlmap={}, dirty=false;   // uploads: path -> Blob ; urlmap: path -> objectURL
-  var TYPES={cover:'Capa',statement:'Manifesto (texto)',opener:'Abertura de secção',openerimg:'Abertura com imagem',bleed:'Imagem a sangrar',strip:'Imagem panorâmica',stack:'Duas imagens empilhadas',pair:'Duas colunas',colsq:'Coluna + quadrado',back:'Contracapa'};
+  var TYPES={cover:'Capa',statement:'Manifesto (texto)',opener:'Abertura de secção',openerimg:'Abertura com imagem',bleed:'Imagem a sangrar',strip:'Imagem panorâmica',column:'Imagem vertical (coluna)',stack:'Duas imagens empilhadas',pair:'Duas colunas',colsq:'Coluna + quadrado',back:'Contracapa'};
   var FIELDS={cover:[['image','img','Imagem'],['title','text','Título'],['sub','text','Subtítulo'],['corner','text','Canto inferior']],
     statement:[['text','textarea','Texto'],['lines','textarea','Índice (uma linha por secção)']],
     opener:[['num','text','Número'],['title','text','Título']], openerimg:[['num','text','Número'],['title','text','Título'],['image','img','Imagem (coluna à direita)']],
-    bleed:[['image','img','Imagem'],['anchor','range','Enquadramento horizontal']], strip:[['image','img','Imagem']],
+    bleed:[['image','img','Imagem'],['anchor','range','Enquadramento horizontal']], strip:[['image','img','Imagem']], column:[['image','img','Imagem']],
     stack:[['top','img','Imagem de cima'],['bottom','img','Imagem de baixo']], pair:[['left','img','Imagem esquerda'],['right','img','Imagem direita']],
     colsq:[['column','img','Imagem vertical (coluna)'],['square','img','Imagem quadrada'],['columnLeft','bool','Coluna à esquerda']], back:[]};
   var VFIELDS=[['kind','kind','Origem'],['src','video','Ficheiro MP4'],['poster','img','Poster (imagem)'],['youtube','text','ID YouTube'],['vimeo','text','ID Vimeo'],['title','text','Título'],['sub','text','Legenda']];
