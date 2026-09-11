@@ -1,82 +1,146 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Cláudio Machado — Lookbook 2026</title>
-<meta name="description" content="Art direction and image production — Cláudio Machado, 2026">
+<title>Cláudio Machado — Lookbooks</title>
 <style>
 @font-face{font-family:Serif;src:url(fonts/Cormorant-Light.ttf) format("truetype");font-weight:300}
 @font-face{font-family:Mono;src:url(fonts/IBMPlexMono-Regular.ttf) format("truetype")}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;background:#050505;color:#EDE9E3;font-family:Serif,Georgia,serif;overflow:hidden;-webkit-font-smoothing:antialiased}
 .mono{font-family:Mono,ui-monospace,monospace;font-size:11px;letter-spacing:.14em;color:#8A857E;text-transform:uppercase}
-#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:44px 4vw 64px}
-#book{box-shadow:0 40px 120px rgba(0,0,0,.8)}
-.page{background:#0B0B0B;overflow:hidden}
-.half{background-size:200% 100%;background-repeat:no-repeat}
-.half.left{background-position:0 0}
-.half.right{background-position:100% 0}
-.s02{background-image:url(img/s-02.jpg)}
-.s03{background-image:url(img/s-03.jpg)}
-.s04{background-image:url(img/s-04.jpg)}
-.s05{background-image:url(img/s-05.jpg)}
-.s06{background-image:url(img/s-06.jpg)}
-.s07{background-image:url(img/s-07.jpg)}
-.s08{background-image:url(img/s-08.jpg)}
-.s09{background-image:url(img/s-09.jpg)}
-.s10{background-image:url(img/s-10.jpg)}
-.s11{background-image:url(img/s-11.jpg)}
-.s12{background-image:url(img/s-12.jpg)}
-.s13{background-image:url(img/s-13.jpg)}
-.s14{background-image:url(img/s-14.jpg)}
-.s15{background-image:url(img/s-15.jpg)}
+#landing{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6vh;perspective:1600px;transition:opacity .5s}
+#landing.hidden{opacity:0;pointer-events:none}
+#landing h1{font-weight:300;font-size:clamp(20px,2.4vw,34px);letter-spacing:.02em}
+#landing .sub{margin-top:8px}
+.shelf{display:flex;gap:12vw;align-items:center;justify-content:center;transform-style:preserve-3d}
+.book3d{--w:clamp(150px,17vw,250px);--h:calc(var(--w)*1.414);--d:calc(var(--w)*.09);width:var(--w);height:var(--h);position:relative;transform-style:preserve-3d;cursor:pointer;transform:rotateY(-22deg) rotateX(4deg);transition:transform .8s cubic-bezier(.22,.8,.2,1)}
+.book3d:hover{transform:rotateY(-34deg) rotateX(4deg) translateY(-8px)}
+.book3d .cover,.book3d .back,.book3d .spine,.book3d .pages,.book3d .inner{position:absolute;backface-visibility:hidden}
+.book3d .inner{inset:0;background:#0B0B0B center/cover no-repeat;transform:translateZ(calc(var(--d)/2 - 1px))}
+.book3d .cover{inset:0;background:#111 center/cover no-repeat;transform-origin:left center;transform:translateZ(calc(var(--d)/2));transition:transform .9s cubic-bezier(.6,.05,.2,1);transform-style:preserve-3d;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.book3d .cover:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.35),rgba(0,0,0,0) 18%,rgba(255,255,255,.06) 45%,rgba(0,0,0,.15))}
+.book3d .cover .cb{position:absolute;inset:0;background:#141414;transform:rotateY(180deg) translateZ(1px);backface-visibility:hidden}
+.book3d .cover .lbl{position:absolute;left:10%;bottom:9%;z-index:2}
+.book3d .cover .lbl h2{font-weight:300;font-size:calc(var(--w)*.13);line-height:1;margin-bottom:.35em;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.book3d .cover .lbl p{font-family:Mono,monospace;font-size:calc(var(--w)*.045);letter-spacing:.18em;color:#d9d3cb;text-transform:uppercase}
+.book3d .back{inset:0;background:#0d0d0d;transform:translateZ(calc(var(--d)/-2)) rotateY(180deg)}
+.book3d .spine{left:0;top:0;width:var(--d);height:100%;background:linear-gradient(90deg,#0a0a0a,#1c1c1c 50%,#0a0a0a);transform:rotateY(-90deg) translateZ(calc(var(--d)/2));transform-origin:left center}
+.book3d .pages{right:0;top:2%;width:calc(var(--d) - 2px);height:96%;background:repeating-linear-gradient(90deg,#e8e2d8 0 1px,#cfc8bd 1px 2px);transform:rotateY(90deg) translateZ(calc(var(--w) - var(--d)/2 - 1px));transform-origin:right center}
+.book3d .shadow{position:absolute;left:8%;right:-8%;bottom:-9%;height:10%;background:radial-gradient(ellipse at center,rgba(0,0,0,.75),rgba(0,0,0,0) 70%);transform:translateZ(calc(var(--d)/-2)) rotateX(90deg);filter:blur(4px)}
+.shelf.opening .book3d{pointer-events:none}
+.book3d.fly{transition:transform .85s cubic-bezier(.22,.8,.2,1);transform:translate3d(var(--dx),var(--dy),0) rotateY(0deg) rotateX(0deg) scale(var(--sc));z-index:5}
+.book3d.open .cover{transform:translateZ(calc(var(--d)/2)) rotateY(-178deg)}
+.book3d.open .shadow{opacity:0;transition:opacity .5s}
+.book3d.dim{opacity:.18;transform:rotateY(-22deg) rotateX(4deg) translateZ(-200px);transition:all .8s}
+.view{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:44px 4vw 64px;opacity:0;transition:opacity .5s}
+.view.on{display:flex}.view.show{opacity:1}
+.bookbox{box-shadow:0 40px 120px rgba(0,0,0,.8);font-size:12px}
+/* ---- shared book styles (viewer + admin preview) ---- */
+.page{background:#0B0B0B;overflow:hidden;position:relative}
+.half-sp .sp{position:absolute;top:0;height:100%;width:200%}
+.half-sp .sp.left{left:0}.half-sp .sp.right{left:-100%}
+.sp-in{position:absolute;inset:0}
+.sp-in.bleed{background-size:cover;background-repeat:no-repeat}
+.sp-in.strip{display:flex;align-items:center;justify-content:center}.sp-in.strip img{width:100%;height:auto;display:block}
+.sp-in.stack{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4%;padding:6.7% 4.7%}.sp-in.stack img{width:100%;height:auto;max-height:46%;object-fit:contain;display:block}
+.sp-in.pair{display:flex;align-items:center;justify-content:center;gap:1.4%;padding:6.7% 4.7%}.sp-in.pair img{height:100%;width:auto;max-width:49%;object-fit:contain;display:block}
+.sp-in.colsq{display:flex;align-items:center;justify-content:center;gap:2%;padding:6.7% 4.7%}.sp-in.colsq.rev{flex-direction:row-reverse}
+.sp-in.colsq img.c{height:100%;width:auto;object-fit:contain}.sp-in.colsq img.s{height:100%;aspect-ratio:1/1;width:auto;object-fit:cover}
+.sp-in.opener .num{position:absolute;left:4.7%;top:8%;font-size:.9em}
+.sp-in.opener h2{position:absolute;left:4.2%;bottom:7%;font-weight:300;font-size:6.2em;line-height:1;letter-spacing:.01em}
+.sp-in.opener img.col{position:absolute;right:4.7%;top:6.7%;height:86.6%;width:auto;object-fit:contain}
+.sp-in.statement .st{position:absolute;left:4.7%;top:30%;width:60%;font-weight:300;font-size:2.1em;line-height:1.35}
+.sp-in.statement .lines{position:absolute;left:4.7%;top:66%;line-height:1.9;font-size:.75em}
+.page-cover .cover-inner{position:absolute;inset:0;background:#1a0f09}
+.page-cover .cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%}
+.page-cover .cover-inner:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.25) 45%,rgba(0,0,0,0) 70%)}
+.page-cover .cover-text{position:absolute;left:8%;bottom:14%;z-index:2}.page-cover h1{font-weight:300;font-size:3.3em;line-height:1;margin-bottom:.5em}
+.page-cover .corner{position:absolute;left:8%;bottom:5%;font-size:.7em;z-index:2}
+.page-back .back-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:10%}
+.page-back h2{font-weight:300;font-size:2.2em;margin-bottom:6px}
+.vpage{position:relative;background:#0B0B0B}
+.vpage video,.vpage iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;background:#000}
+.vpage .vcap{position:absolute;left:3.5%;bottom:5%;z-index:2;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.vpage .vcap h3{font-weight:300;font-size:2em;margin-bottom:.3em}.vpage h3.big{font-size:3.2em}
+.vpage .vnum{position:absolute;right:3.5%;bottom:5%;z-index:2}
+.vpage.vcover{background-size:cover;background-position:center}.vpage.vcover:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.75),rgba(0,0,0,.2) 55%,rgba(0,0,0,0))}
+.vpage.vend{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;text-align:center}
 
-.page-cover,.page-back{background:#0B0B0B;position:relative}
-.cover-inner{position:absolute;inset:0;background:#1a0f09}
-.cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%}
-.cover-inner:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.25) 45%,rgba(0,0,0,0) 70%)}
-.cover-text{position:absolute;left:8%;bottom:14%;z-index:2}
-.cover-text h1{font-weight:300;font-size:clamp(22px,3.2vw,44px);line-height:1;margin-bottom:.6em;letter-spacing:.01em}
-.corner{position:absolute;left:8%;bottom:5%;font-size:9px;z-index:2}
-.back-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:10%}
-.back-inner h2{font-weight:300;font-size:clamp(18px,2.2vw,30px);margin-bottom:8px}
-.back-inner .small{margin-top:26px;font-size:9px;text-transform:none;letter-spacing:.06em;line-height:1.6;max-width:32ch}
-#ui{position:fixed;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:18px;align-items:center;z-index:5}
+
+/* ---- real-book feel: gutter shading, page-block edges, softer flips ---- */
+.bookwrap{position:relative}
+.bookwrap:before,.bookwrap:after{content:"";position:absolute;top:3px;bottom:-3px;width:11px;pointer-events:none;z-index:0;opacity:1;transition:opacity .4s;
+  background:repeating-linear-gradient(90deg,#efe9df 0 1px,#cfc7bb 1px 2px,#e6dfd4 2px 3px);box-shadow:0 8px 20px rgba(0,0,0,.6)}
+.bookwrap:before{left:-11px;border-radius:2px 0 0 2px;transform:skewY(-.6deg)}
+.bookwrap:after{right:-11px;border-radius:0 2px 2px 0;transform:skewY(.6deg)}
+.bookwrap.at-cover:before,.bookwrap.single:before{opacity:0}
+.bookwrap.at-end:after,.bookwrap.single:after{opacity:0}
+.bookbox{position:relative;z-index:1;box-shadow:0 50px 140px rgba(0,0,0,.85),0 2px 0 rgba(255,255,255,.04)}
+.page.pg-left:after,.page.pg-right:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:3}
+.page.pg-left:after{background:linear-gradient(90deg,rgba(0,0,0,0) 80%,rgba(0,0,0,.22) 94%,rgba(0,0,0,.55) 100%),linear-gradient(90deg,rgba(0,0,0,0) calc(100% - 1px),rgba(255,255,255,.10) 100%)}
+.page.pg-right:after{background:linear-gradient(270deg,rgba(0,0,0,0) 80%,rgba(0,0,0,.22) 94%,rgba(0,0,0,.55) 100%),linear-gradient(270deg,rgba(0,0,0,0) calc(100% - 1px),rgba(255,255,255,.10) 100%)}
+.page:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:3;background:linear-gradient(115deg,rgba(255,255,255,.05) 0%,rgba(255,255,255,0) 35%,rgba(0,0,0,0) 65%,rgba(0,0,0,.10) 100%)}
+.stf__item{will-change:transform}
+
+#ui{position:fixed;left:0;right:0;bottom:14px;display:none;justify-content:center;gap:14px;align-items:center;z-index:5}
+#ui.on{display:flex}
 #ui button{background:transparent;border:1px solid #2a2a2a;color:#8A857E;font-family:Mono,monospace;font-size:10px;letter-spacing:.12em;padding:8px 14px;cursor:pointer;border-radius:2px}
 #ui button:hover{color:#EDE9E3;border-color:#555}
 #counter{font-family:Mono,monospace;font-size:10px;letter-spacing:.12em;color:#5C5852;min-width:80px;text-align:center}
-#hint{position:fixed;top:14px;left:0;right:0;text-align:center;font-family:Mono,monospace;font-size:9px;letter-spacing:.16em;color:#3a3835;text-transform:uppercase}
-@media (max-width:700px){#hint{display:none}}
+#hint{position:fixed;top:14px;left:0;right:0;text-align:center;font-family:Mono,monospace;font-size:9px;letter-spacing:.16em;color:#3a3835;text-transform:uppercase;display:none}
+#hint.on{display:block}
+@media (max-width:700px){#hint{display:none!important}.shelf{gap:8vw}.book3d{--w:36vw}}
 </style></head>
 <body>
-<div id="hint">Click or drag the page edge · ← → keys</div>
-<div id="stage"><div id="book">
-<div class="page page-cover" data-density="hard"><div class="cover-inner"><img class="cover-img" src="img/cover.jpg" alt=""><div class="cover-text"><h1>Cláudio Machado</h1><p class="mono">L O O K B O O K &nbsp;·&nbsp; 2 0 2 6</p></div><p class="mono corner">ART DIRECTION · IMAGE PRODUCTION</p></div></div><div class="page half left s02"></div><div class="page half right s02"></div><div class="page half left s03"></div><div class="page half right s03"></div><div class="page half left s04"></div><div class="page half right s04"></div><div class="page half left s05"></div><div class="page half right s05"></div><div class="page half left s06"></div><div class="page half right s06"></div><div class="page half left s07"></div><div class="page half right s07"></div><div class="page half left s08"></div><div class="page half right s08"></div><div class="page half left s09"></div><div class="page half right s09"></div><div class="page half left s10"></div><div class="page half right s10"></div><div class="page half left s11"></div><div class="page half right s11"></div><div class="page half left s12"></div><div class="page half right s12"></div><div class="page half left s13"></div><div class="page half right s13"></div><div class="page half left s14"></div><div class="page half right s14"></div><div class="page half left s15"></div><div class="page half right s15"></div><div class="page page-back" data-density="hard"><div class="back-inner"><h2>Cláudio Machado</h2><p class="mono">claudiohenrique0404@icloud.com &nbsp;·&nbsp; +351 916 128 440</p><p class="mono">claudiohenrique0404-tech.github.io/Portfolio</p><p class="mono small">Every image in this book was produced in Prozis Studio, a platform I designed and built.</p></div></div>
-</div></div>
-<div id="ui"><button id="prev">← Prev</button><span id="counter"></span><button id="next">Next →</button><button id="fs">Fullscreen</button></div>
-<script src="js/page-flip.browser.js"></script>
+<div id="landing">
+  <div style="text-align:center"><h1 id="siteName"></h1><p class="mono sub" id="siteTag"></p></div>
+  <div class="shelf" id="shelf">
+    <div class="book3d" data-book="images"><div class="shadow"></div><div class="back"></div><div class="pages"></div><div class="spine"></div><div class="inner" id="innerImages"></div>
+      <div class="cover" id="coverImages"><div class="cb"></div><div class="lbl"><h2 id="lblImages"></h2><p id="subImages"></p></div></div></div>
+    <div class="book3d" data-book="video"><div class="shadow"></div><div class="back"></div><div class="pages"></div><div class="spine"></div><div class="inner" id="innerVideo"></div>
+      <div class="cover" id="coverVideo"><div class="cb"></div><div class="lbl"><h2 id="lblVideo"></h2><p id="subVideo"></p></div></div></div>
+  </div>
+  <p class="mono" style="font-size:9px;color:#3a3835">Choose a book</p>
+</div>
+<div class="view" id="view-images"><div class="bookwrap at-cover" id="wrap-images"><div class="bookbox" id="book-images"></div></div></div>
+<div class="view" id="view-video"><div class="bookwrap single" id="wrap-video"><div class="bookbox" id="book-video"></div></div></div>
+<div id="hint">Click or drag the page edge · ← → keys · Esc to close</div>
+<div id="ui"><button id="back">✕ Close</button><button id="prev">← Prev</button><span id="counter"></span><button id="next">Next →</button><button id="fs">Fullscreen</button></div>
+<script src="js/page-flip.browser.js"></script><script src="js/lookbook.js"></script>
 <script>
 (function(){
-  var stage=document.getElementById('stage'), el=document.getElementById('book');
-  // page ratio A4 portrait (each half of a landscape spread)
-  var R=210/297;
-  function dims(){
-    var W=stage.clientWidth, H=stage.clientHeight;
-    var single=window.innerWidth<700;                 // phone: one page at a time
-    var pw=single?Math.min(W,H*R):Math.min(W/2,H*R);
-    var ph=pw/R;
-    return {w:Math.floor(pw),h:Math.floor(ph),single:single};
-  }
-  var d=dims();
-  var flip=new St.PageFlip(el,{width:d.w,height:d.h,size:'fixed',showCover:true,usePortrait:d.single,
-    flippingTime:800,maxShadowOpacity:.55,drawShadow:true,mobileScrollSupport:false,useMouseEvents:true,swipeDistance:20});
-  flip.loadFromHTML(document.querySelectorAll('.page'));
-  var counter=document.getElementById('counter'), total=flip.getPageCount();
-  function upd(){ var p=flip.getCurrentPageIndex(); counter.textContent=(p===0?'COVER':(p>=total-1?'END':String(p).padStart(2,'0')+' / '+String(total-2).padStart(2,'0'))); }
-  flip.on('flip',upd); upd();
-  document.getElementById('next').onclick=function(){flip.flipNext();};
-  document.getElementById('prev').onclick=function(){flip.flipPrev();};
-  document.addEventListener('keydown',function(e){ if(e.key==='ArrowRight')flip.flipNext(); if(e.key==='ArrowLeft')flip.flipPrev(); });
-  document.getElementById('fs').onclick=function(){ var de=document.documentElement; (document.fullscreenElement?document.exitFullscreen():de.requestFullscreen&&de.requestFullscreen()); };
-  var t; window.addEventListener('resize',function(){ clearTimeout(t); t=setTimeout(function(){ var n=dims(); flip.update({width:n.w,height:n.h,usePortrait:n.single}); },150); });
+  var landing=document.getElementById('landing'), shelf=document.getElementById('shelf'), ui=document.getElementById('ui'), hint=document.getElementById('hint'), counter=document.getElementById('counter');
+  var current=null, flips={}, C=null;
+  fetch('content.json?v='+Date.now()).then(function(r){return r.json();}).then(function(c){ C=c;
+    document.getElementById('siteName').textContent=c.site.name; document.getElementById('siteTag').textContent=c.site.tagline;
+    document.getElementById('coverImages').style.backgroundImage='url("'+c.images.coverImage+'")'; document.getElementById('lblImages').textContent=c.images.label; document.getElementById('subImages').textContent=c.images.sub;
+    var cp=c.images.pages.find(function(p){return p.type==='cover';}); document.getElementById('innerImages').style.backgroundImage='url("'+(cp?cp.image:c.images.coverImage)+'")';
+    document.getElementById('coverVideo').style.backgroundImage='url("'+c.video.coverImage+'")'; document.getElementById('lblVideo').textContent=c.video.label; document.getElementById('subVideo').textContent=c.video.sub;
+    document.getElementById('innerVideo').style.backgroundImage='url("'+c.video.coverImage+'")';
+  });
+  function dimsImages(){ var W=innerWidth*0.92, H=innerHeight-108, R=210/297, single=innerWidth<700; var pw=single?Math.min(W,H*R):Math.min(W/2,H*R); return {w:Math.floor(pw),h:Math.floor(pw/R),single:single}; }
+  function dimsVideo(){ var W=innerWidth*0.92, H=innerHeight-108, R=16/9; var pw=Math.min(W,H*R); return {w:Math.floor(pw),h:Math.floor(pw/R)}; }
+  function initFlip(which){ if(flips[which]) return flips[which]; var el,opts,pages;
+    if(which==='images'){ var d=dimsImages(); el=document.getElementById('book-images'); pages=LB.buildImagePages(C); el.style.fontSize=(d.w/34)+'px';
+      opts={width:d.w,height:d.h,size:'fixed',showCover:true,usePortrait:d.single,flippingTime:1100,maxShadowOpacity:.75,drawShadow:true,showPageCorners:true,mobileScrollSupport:false,swipeDistance:20}; }
+    else { var v=dimsVideo(); el=document.getElementById('book-video'); pages=LB.buildVideoPages(C); el.style.fontSize=(v.w/70)+'px';
+      opts={width:v.w,height:v.h,size:'fixed',showCover:true,usePortrait:true,flippingTime:1000,maxShadowOpacity:.7,drawShadow:true,mobileScrollSupport:false,swipeDistance:20}; }
+    el.innerHTML=''; pages.forEach(function(p){el.appendChild(p);});
+    var f=new St.PageFlip(el,opts); f.loadFromHTML(el.querySelectorAll('.page')); f.on('flip',function(){upd();pauseVideos();}); f.on('changeState',function(e){ if(e.data==='read') upd(); }); flips[which]=f; return f; }
+  function pauseVideos(){ document.querySelectorAll('#book-video video').forEach(function(v){v.pause();}); }
+  function upd(){ if(!current) return; var f=flips[current], p=f.getCurrentPageIndex(), t=f.getPageCount(); var w=document.getElementById('wrap-'+current); if(w){ w.classList.toggle('at-cover',p===0); w.classList.toggle('at-end',p>=t-1); } counter.textContent=(p===0?'COVER':(p>=t-1?'END':String(p).padStart(2,'0')+' / '+String(t-2).padStart(2,'0'))); }
+  function openBook(which,el){ if(!C) return; shelf.classList.add('opening');
+    var r=el.getBoundingClientRect(), target=(which==='images')?dimsImages():dimsVideo(); var tw=(which==='images')?target.w:target.w*0.62; var sc=Math.max(1.4,Math.min(2.6,tw/r.width));
+    var cx=innerWidth/2-(r.left+r.width/2), cy=innerHeight/2-(r.top+r.height/2)-8; el.style.setProperty('--dx',cx+'px'); el.style.setProperty('--dy',cy+'px'); el.style.setProperty('--sc',sc);
+    shelf.querySelectorAll('.book3d').forEach(function(b){ if(b!==el) b.classList.add('dim'); });
+    el.classList.add('fly'); setTimeout(function(){ el.classList.add('open'); },700);
+    setTimeout(function(){ var view=document.getElementById('view-'+which); view.classList.add('on'); initFlip(which); current=which; upd();
+      requestAnimationFrame(function(){ view.classList.add('show'); }); landing.classList.add('hidden'); ui.classList.add('on'); hint.classList.add('on'); },1350); }
+  function closeBook(){ if(!current) return; pauseVideos(); var view=document.getElementById('view-'+current); view.classList.remove('show'); setTimeout(function(){view.classList.remove('on');},500);
+    landing.classList.remove('hidden'); ui.classList.remove('on'); hint.classList.remove('on'); shelf.classList.remove('opening'); shelf.querySelectorAll('.book3d').forEach(function(b){b.classList.remove('fly','open','dim');}); current=null; }
+  shelf.querySelectorAll('.book3d').forEach(function(b){ b.addEventListener('click',function(){openBook(b.dataset.book,b);}); });
+  document.getElementById('back').onclick=closeBook; document.getElementById('next').onclick=function(){if(current)flips[current].flipNext();}; document.getElementById('prev').onclick=function(){if(current)flips[current].flipPrev();};
+  document.getElementById('fs').onclick=function(){var de=document.documentElement;document.fullscreenElement?document.exitFullscreen():de.requestFullscreen&&de.requestFullscreen();};
+  document.addEventListener('keydown',function(e){if(!current)return;if(e.key==='ArrowRight')flips[current].flipNext();if(e.key==='ArrowLeft')flips[current].flipPrev();if(e.key==='Escape')closeBook();});
+  var t; addEventListener('resize',function(){clearTimeout(t);t=setTimeout(function(){ if(flips.images){var d=dimsImages();document.getElementById('book-images').style.fontSize=(d.w/34)+'px';flips.images.update({width:d.w,height:d.h,usePortrait:d.single});} if(flips.video){var v=dimsVideo();document.getElementById('book-video').style.fontSize=(v.w/70)+'px';flips.video.update({width:v.w,height:v.h});} },150);});
 })();
-</script>
-</body></html>
+</script></body></html>
