@@ -133,10 +133,6 @@
         "anchor": 50
       },
       {
-        "type": "strip",
-        "image": "img/coffee-beans-2.jpg"
-      },
-      {
         "type": "openerimg",
         "num": "04",
         "title": "Footwear",
@@ -157,6 +153,12 @@
     "sub": "Lookbook · 02",
     "coverImage": "img/cover-video.jpg",
     "pages": [
+      {
+        "src": "video/collagen.mp4",
+        "poster": "video/collagen.jpg",
+        "title": "Collagen Peptides — kitchen",
+        "sub": "Prozis · nutrition · lifestyle"
+      },
       {
         "src": "video/coffee-pour.mp4",
         "poster": "video/coffee-pour.jpg",
@@ -204,16 +206,8 @@
         "poster": "video/almonds.jpg",
         "title": "Almonds — freefall",
         "sub": "Prozis · nutrition · macro"
-      },
-      {
-        "src": "video/collagen.mp4",
-        "poster": "video/collagen.jpg",
-        "title": "Collagen Peptides — kitchen",
-        "sub": "Prozis · nutrition · lifestyle"
       }
     ],
-    "pageCover": "img/rings.jpg",
-    "pageCoverAnchor": 58,
     "coverStyle": "plain"
   }
 }

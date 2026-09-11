@@ -106,7 +106,7 @@ body{background:var(--choc-800)}
 .book3d .back{background:var(--choc-800)}
 /* --- choreography --- */
 .shelf.opening .book3d{pointer-events:none}
-.book3d.out{transition:transform .9s cubic-bezier(.5,0,.6,1),opacity .7s;transform:translate3d(var(--ox),0,0) rotateY(0deg);opacity:0}
+.book3d.out{transition:transform .9s cubic-bezier(.5,0,.6,1),opacity .7s;transform:translate3d(var(--ox,0px),var(--oy,0px),0) rotateY(0deg);opacity:0}
 .book3d.center{transition:transform .9s cubic-bezier(.22,.8,.2,1);transform:translate3d(var(--dx),var(--dy),0) rotateY(0deg) rotateX(0deg) scale(var(--sc));z-index:5}
 .book3d.open .cover{transform:translateZ(calc(var(--d)/2)) rotateY(-178deg)}
 .book3d.open .shadow{opacity:0;transition:opacity .5s}
@@ -117,6 +117,16 @@ body{background:var(--choc-800)}
 .page{background:var(--choc-800,#2c1a11);overflow:hidden;position:relative}
 .half-sp .sp{background:var(--choc-700,#3a2417)}
 .half-sp .sp{position:absolute;top:0;height:100%;width:200%}
+.spread-single .sp.full{position:absolute;inset:0;width:100%;height:100%;background:var(--choc-700)}
+.sp-in.vposter{display:flex;align-items:center;justify-content:center;background:var(--choc-700)}.sp-in.vposter img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+#vover{position:fixed;z-index:4;background:var(--choc-700);opacity:0;pointer-events:none;transition:opacity .75s ease;display:none;overflow:hidden}
+#vover.on{display:block;transition:opacity .18s}#vover.show{opacity:1;pointer-events:auto;transition:opacity .75s ease}
+#vover video,#vover iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border:0;background:var(--choc-700)}
+#vover .vcap{position:absolute;left:3%;bottom:5%;z-index:2;text-shadow:0 1px 8px rgba(0,0,0,.7);font-family:var(--f-serif);color:var(--ivory)}
+#vover .vcap h3{font-weight:300;font-size:clamp(14px,1.8vw,26px);margin-bottom:.25em}
+#vover .vnum{position:absolute;right:3%;bottom:5%;z-index:2}
+@media (max-width:700px),(max-height:520px){#vover .vcap{bottom:auto;top:4%}#vover .vnum{bottom:auto;top:4%}}
+.spread-single.page-cover .cover-inner{inset:0}
 .half-sp .sp.left{left:0}.half-sp .sp.right{left:-100%}
 .sp-in{position:absolute;inset:0}
 .sp-in.bleed{background-size:cover;background-repeat:no-repeat}
@@ -169,7 +179,17 @@ body{background:var(--choc-800)}
 #counter{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;color:var(--brass-dim);min-width:80px;text-align:center}
 #hint{position:fixed;top:14px;left:0;right:0;text-align:center;font-family:var(--f-mono);font-size:9px;letter-spacing:.16em;color:var(--brass-dim);text-transform:uppercase;display:none}
 #hint.on{display:block}
-@media (max-width:700px){#hint{display:none!important}.shelf{gap:8vw}.book3d{--w:36vw}}
+@media (max-width:700px),(max-height:520px){
+  #hint{display:none!important}
+  #landing .head h1{font-size:18px}
+  .shelf{flex-direction:column;gap:3.5vh;margin-top:4vh}
+  .book3d{--h:min(36vh,calc((100vw - 24vw)*1.414))}
+  .view{padding:34px 2vw 58px}
+  #ui{gap:8px;bottom:10px}#ui button{padding:7px 10px;font-size:9px}#counter{min-width:60px}
+  .bookwrap:before,.bookwrap:after{width:6px}
+  .vpage .vcap{bottom:auto;top:5%}.vpage .vnum{bottom:auto;top:5%}.vpage .vcap h3{font-size:1.5em}
+}
+@media (max-height:520px) and (orientation:landscape){ .shelf{flex-direction:row;gap:4vw;margin-top:2vh} .book3d{--h:min(70vh,calc((100vw - 16vw)/2*1.414))} }
 </style></head>
 <body>
 <div id="bg"><div class="reed l"></div><div class="reed r"></div><div class="wall"></div><div class="arch"></div><div class="ledge"></div><div class="sconce l"></div><div class="sconce r"></div><div class="grain"></div><div class="vig"></div></div>
@@ -184,7 +204,8 @@ body{background:var(--choc-800)}
   <p class="mono foot" style="font-size:9px;color:#3a3835">Choose a book</p>
 </div>
 <div class="view" id="view-images"><div class="bookwrap at-cover" id="wrap-images"><div class="bookbox" id="book-images"></div></div></div>
-<div class="view" id="view-video"><div class="bookwrap single" id="wrap-video"><div class="bookbox" id="book-video"></div></div></div>
+<div class="view" id="view-video"><div class="bookwrap at-cover" id="wrap-video"><div class="bookbox" id="book-video"></div></div></div>
+<div id="vover"><div class="vcap"><h3></h3><p class="mono"></p></div><p class="mono vnum"></p></div>
 <div id="hint">Click or drag the page edge · ← → keys · Esc to close</div>
 <div id="ui"><button id="back">✕ Close</button><button id="prev">← Prev</button><span id="counter"></span><button id="next">Next →</button><button id="fs">Fullscreen</button></div>
 <script src="js/page-flip.browser.js"></script><script src="js/lookbook.js"></script>
@@ -199,38 +220,56 @@ body{background:var(--choc-800)}
     if(c.video.coverStyle==='plate'&&c.video.coverImage){ document.getElementById('coverVideo').style.backgroundImage='url("'+c.video.coverImage+'")'; document.querySelector('.book3d[data-book="video"]').classList.add('plate'); } document.getElementById('lblVideo').textContent=c.video.label; document.getElementById('subVideo').textContent=c.video.sub;
     document.getElementById('innerVideo').style.backgroundImage='url("'+c.video.coverImage+'")';
   });
-  function dimsImages(){ var W=innerWidth*0.92, H=innerHeight-108, R=210/297, single=innerWidth<700; var pw=single?Math.min(W,H*R):Math.min(W/2,H*R); return {w:Math.floor(pw),h:Math.floor(pw/R),single:single}; }
-  function dimsVideo(){ var W=innerWidth*0.92, H=innerHeight-108, R=16/9; var pw=Math.min(W,H*R); return {w:Math.floor(pw),h:Math.floor(pw/R)}; }
+  function isMobile(){ return innerWidth<700 || innerHeight<520; }
+  function dimsImages(){ var W=innerWidth*0.92, H=innerHeight-92, R=210/297;
+    if(isMobile()){ var sw=Math.min(innerWidth*0.96,H*297/210); return {w:Math.floor(sw),h:Math.floor(sw*210/297),single:true}; }   // one whole spread per page
+    var pw=Math.min(W/2,H*R); return {w:Math.floor(pw),h:Math.floor(pw/R),single:false}; }
+  function dimsVideo(){ var W=innerWidth*(isMobile()?0.96:0.92), H=innerHeight-(isMobile()?92:108), R=16/9; var pw=Math.min(W,H*R); return {w:Math.floor(pw),h:Math.floor(pw/R)}; }
   function initFlip(which){ if(flips[which]) return flips[which]; var el,opts,pages;
-    if(which==='images'){ var d=dimsImages(); el=document.getElementById('book-images'); pages=LB.buildImagePages(C); el.style.fontSize=(d.w/34)+'px';
+    if(which==='images'){ var d=dimsImages(); el=document.getElementById('book-images'); pages=LB.buildImagePages(C,null,{single:d.single}); el.style.fontSize=(d.single?d.w/68:d.w/34)+'px'; el.dataset.mode=d.single?'single':'spread';
       opts={width:d.w,height:d.h,size:'fixed',showCover:true,usePortrait:d.single,flippingTime:900,maxShadowOpacity:.8,drawShadow:true,showPageCorners:false,mobileScrollSupport:false,swipeDistance:20}; }
-    else { var v=dimsVideo(); el=document.getElementById('book-video'); pages=LB.buildVideoPages(C); el.style.fontSize=(v.w/70)+'px';
-      opts={width:v.w,height:v.h,size:'fixed',showCover:true,usePortrait:true,flippingTime:850,maxShadowOpacity:.75,drawShadow:true,mobileScrollSupport:false,swipeDistance:20}; }
+    else { var d2=dimsImages(); el=document.getElementById('book-video'); pages=LB.buildVideoPages(C,null,{single:d2.single}); el.style.fontSize=(d2.single?d2.w/68:d2.w/34)+'px'; el.dataset.mode=d2.single?'single':'spread';
+      opts={width:d2.w,height:d2.h,size:'fixed',showCover:false,usePortrait:d2.single,flippingTime:900,maxShadowOpacity:.8,drawShadow:true,showPageCorners:false,mobileScrollSupport:false,swipeDistance:20}; }
     el.innerHTML=''; pages.forEach(function(p){el.appendChild(p);});
-    var f=new St.PageFlip(el,opts); f.loadFromHTML(el.querySelectorAll('.page')); f.on('flip',function(){upd();pauseVideos();}); f.on('changeState',function(e){ if(e.data==='read') upd(); }); flips[which]=f; return f; }
+    var f=new St.PageFlip(el,opts); f.loadFromHTML(el.querySelectorAll('.page')); f.on('flip',function(){upd();});
+    f.on('changeState',function(e){ if(e.data==='read'){ upd(); if(which==='video') showOverlay(); } else if(which==='video'){ hideOverlay(); } }); flips[which]=f; return f; }
+  /* ---------- overlay player: appears over the spread after the turn; gutter dissolves as it fades in ---------- */
+  var vover=document.getElementById('vover'), vTimer=null;
+  function currentVideoIndex(){ var f=flips.video; if(!f) return 0; var p=f.getCurrentPageIndex(); return (document.getElementById('book-video').dataset.mode==='single')?p:Math.floor(p/2); }
+  function placeOverlay(){ var box=document.getElementById('book-video').getBoundingClientRect(); vover.style.left=box.left+'px'; vover.style.top=box.top+'px'; vover.style.width=box.width+'px'; vover.style.height=box.height+'px'; }
+  function showOverlay(){ if(current!=='video') return; clearTimeout(vTimer); var i=currentVideoIndex(), v=C.video.pages[i]; if(!v) return;
+    var old=vover.querySelector('video,iframe'); if(old) old.remove();
+    vover.insertAdjacentHTML('afterbegin',LB.videoMedia(v)); vover.querySelector('.vcap h3').textContent=v.title||''; vover.querySelector('.vcap p').textContent=v.sub||'';
+    vover.querySelector('.vnum').textContent=String(i+1).padStart(2,'0')+' / '+String(C.video.pages.length).padStart(2,'0');
+    placeOverlay(); vover.classList.add('on');
+    vTimer=setTimeout(function(){ vover.classList.add('show'); var m=vover.querySelector('video'); if(m){ m.currentTime=0; var pr=m.play(); if(pr&&pr.catch) pr.catch(function(){}); } },450); }   // let the spine mark be seen, then dissolve
+  function hideOverlay(){ clearTimeout(vTimer); vover.classList.remove('show'); var m=vover.querySelector('video'); if(m) m.pause(); setTimeout(function(){ if(!vover.classList.contains('show')) vover.classList.remove('on'); },400); }
+  function pauseVideos(){ hideOverlay(); }
   function pauseVideos(){ document.querySelectorAll('#book-video video').forEach(function(v){v.pause();}); }
-  function upd(){ if(!current) return; var f=flips[current], p=f.getCurrentPageIndex(), t=f.getPageCount(); var w=document.getElementById('wrap-'+current); if(w){ w.classList.toggle('at-cover',p===0); w.classList.toggle('at-end',p>=t-1); } counter.textContent=(p===0?'COVER':(p>=t-1?'END':String(p).padStart(2,'0')+' / '+String(t-2).padStart(2,'0'))); }
+  function upd(){ if(!current) return; var f=flips[current], p=f.getCurrentPageIndex(), t=f.getPageCount(); var w=document.getElementById('wrap-'+current); if(w){ w.classList.toggle('at-cover',p===0); w.classList.toggle('at-end',p>=t-1); } if(current==='video'){ var vi=currentVideoIndex(); counter.textContent=String(vi+1).padStart(2,'0')+' / '+String(C.video.pages.length).padStart(2,'0'); if(w){ w.classList.toggle('at-cover',vi===0); w.classList.toggle('at-end',vi>=C.video.pages.length-1); } return; }
+    counter.textContent=(p===0?'COVER':(p>=t-1?'END':String(p).padStart(2,'0')+' / '+String(t-2).padStart(2,'0'))); }
   function openBook(which,el){ if(!C) return; shelf.classList.add('opening');
     var r=el.getBoundingClientRect(), cy=(44+(innerHeight-108)/2)-(r.top+r.height/2);   // vertical centre of the open-book area
     var sc,cx;
+    var mob=isMobile(); cy=(((mob?34:44)+(innerHeight-(mob?92:108))/2))-(r.top+r.height/2);
     if(which==='images'){ var d=dimsImages();
-      if(d.single){ sc=d.w/r.width; cx=innerWidth/2-(r.left+r.width/2); }
+      if(d.single){ sc=d.h/r.height; cx=innerWidth/2-(r.left+r.width/2); }
       else { sc=d.w/r.width; cx=(innerWidth/2+d.w/2)-(r.left+r.width/2); }              // closed cover = right-hand page, spine on centre line
-    } else { var v=dimsVideo(); sc=v.h/r.height; cx=innerWidth/2-(r.left+r.width/2); }
+    } else { var dv=dimsImages(); if(dv.single){ sc=dv.h/r.height; cx=innerWidth/2-(r.left+r.width/2); } else { sc=dv.w/r.width; cx=(innerWidth/2+dv.w/2)-(r.left+r.width/2); } }
     el.style.setProperty('--dx',cx+'px'); el.style.setProperty('--dy',cy+'px'); el.style.setProperty('--sc',sc);
-    shelf.querySelectorAll('.book3d').forEach(function(b){ if(b!==el){ var rb=b.getBoundingClientRect(); var dir=(rb.left+rb.width/2)<innerWidth/2?-1:1; b.style.setProperty('--ox',(dir*(innerWidth*0.9+rb.width))+'px'); b.classList.add('out'); } });
+    shelf.querySelectorAll('.book3d').forEach(function(b){ if(b!==el){ var rb=b.getBoundingClientRect(); if(mob&&Math.abs((rb.left+rb.width/2)-(r.left+r.width/2))<20){ var dy=(rb.top+rb.height/2)<(r.top+r.height/2)?-1:1; b.style.setProperty('--ox','0px'); b.style.setProperty('--oy',(dy*(innerHeight*0.9+rb.height))+'px'); } else { var dir=(rb.left+rb.width/2)<innerWidth/2?-1:1; b.style.setProperty('--oy','0px'); b.style.setProperty('--ox',(dir*(innerWidth*0.9+rb.width))+'px'); } b.classList.add('out'); } });
     el.classList.add('center');                                 // 1) the other slides out; this one travels to where its open cover will sit (.9s)
     setTimeout(function(){ el.classList.add('open'); },950);    // 2) only then the cover swings on the spine (1s)
     setTimeout(function(){ var view=document.getElementById('view-'+which); view.classList.add('on'); initFlip(which); current=which; upd();
-      requestAnimationFrame(function(){ view.classList.add('show'); }); },1750);          // 3) open book fades in exactly underneath
+      requestAnimationFrame(function(){ view.classList.add('show'); }); if(which==='video') setTimeout(showOverlay,500); },1750);          // 3) open book fades in exactly underneath; video dissolves in after the spine is seen
     setTimeout(function(){ landing.classList.add('hidden'); ui.classList.add('on'); hint.classList.add('on'); },2000);
   }
-  function closeBook(){ if(!current) return; pauseVideos(); var view=document.getElementById('view-'+current); view.classList.remove('show'); setTimeout(function(){view.classList.remove('on');},500);
+  function closeBook(){ if(!current) return; hideOverlay(); vover.classList.remove('on'); var view=document.getElementById('view-'+current); view.classList.remove('show'); setTimeout(function(){view.classList.remove('on');},500);
     landing.classList.remove('hidden'); ui.classList.remove('on'); hint.classList.remove('on'); shelf.classList.remove('opening'); shelf.querySelectorAll('.book3d').forEach(function(b){b.classList.remove('center','open','out');}); current=null; }
   shelf.querySelectorAll('.book3d').forEach(function(b){ b.addEventListener('click',function(){openBook(b.dataset.book,b);}); });
   document.getElementById('back').onclick=closeBook; document.getElementById('next').onclick=function(){if(current)flips[current].flipNext();}; document.getElementById('prev').onclick=function(){if(current)flips[current].flipPrev();};
   document.getElementById('fs').onclick=function(){var de=document.documentElement;document.fullscreenElement?document.exitFullscreen():de.requestFullscreen&&de.requestFullscreen();};
   document.addEventListener('keydown',function(e){if(!current)return;if(e.key==='ArrowRight')flips[current].flipNext();if(e.key==='ArrowLeft')flips[current].flipPrev();if(e.key==='Escape')closeBook();});
-  var t; addEventListener('resize',function(){clearTimeout(t);t=setTimeout(function(){ if(flips.images){var d=dimsImages();document.getElementById('book-images').style.fontSize=(d.w/34)+'px';flips.images.update({width:d.w,height:d.h,usePortrait:d.single});} if(flips.video){var v=dimsVideo();document.getElementById('book-video').style.fontSize=(v.w/70)+'px';flips.video.update({width:v.w,height:v.h});} },150);});
+  var t; addEventListener('resize',function(){clearTimeout(t);t=setTimeout(function(){ if(flips.images){var d=dimsImages(); var el=document.getElementById('book-images'); var mode=d.single?'single':'spread'; if(el.dataset.mode!==mode){ try{flips.images.destroy();}catch(e){} flips.images=null; el.innerHTML=''; if(current==='images'){ initFlip('images'); upd(); } } else { el.style.fontSize=(d.single?d.w/68:d.w/34)+'px'; flips.images.update({width:d.w,height:d.h,usePortrait:d.single}); } } if(flips.video){var dv=dimsImages(); var ev=document.getElementById('book-video'); var mv=dv.single?'single':'spread'; if(ev.dataset.mode!==mv){ try{flips.video.destroy();}catch(e){} flips.video=null; ev.innerHTML=''; if(current==='video'){ initFlip('video'); upd(); showOverlay(); } } else { ev.style.fontSize=(dv.single?dv.w/68:dv.w/34)+'px'; flips.video.update({width:dv.w,height:dv.h,usePortrait:dv.single}); if(current==='video') placeOverlay(); } } },150);});
 })();
 </script></body></html>
