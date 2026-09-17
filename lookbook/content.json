@@ -60,6 +60,17 @@
       },
       {
         "type": "pair",
+        "left": "img/tee-stand.jpg",
+        "right": "img/tee-plates.jpg"
+      },
+      {
+        "type": "colsq",
+        "column": "img/tee-close.jpg",
+        "square": "img/tee-hips.jpg",
+        "columnLeft": true
+      },
+      {
+        "type": "pair",
         "left": "img/gym-pullup.jpg",
         "right": "img/gym-cable.jpg"
       },
