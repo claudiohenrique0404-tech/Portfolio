@@ -70,6 +70,27 @@
         "columnLeft": true
       },
       {
+        "type": "stack",
+        "top": "img/ep-black-banner.jpg",
+        "bottom": "img/ep-white-banner.jpg"
+      },
+      {
+        "type": "pair",
+        "left": "img/ep-black-full.jpg",
+        "right": "img/ep-white-full.jpg"
+      },
+      {
+        "type": "pair",
+        "left": "img/ep-black-plate.jpg",
+        "right": "img/ep-white-band.jpg"
+      },
+      {
+        "type": "colsq",
+        "column": "img/ep-black-story.jpg",
+        "square": "img/ep-black-back-sq.jpg",
+        "columnLeft": false
+      },
+      {
         "type": "pair",
         "left": "img/gym-pullup.jpg",
         "right": "img/gym-cable.jpg"
